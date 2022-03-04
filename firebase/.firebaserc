@@ -1,0 +1,20 @@
+{
+  "projects": {
+    "kakapoly": "kakapoly"
+  },
+  "targets": {
+    "kakapoly": {
+      "hosting": {
+        "kakapoly": [
+          "kakapoly"
+        ],
+        "kakapoly-store": [
+          "kakapoly-store"
+        ],
+        "kakapoly-store-dev": [
+          "kakapoly-store-dev"
+        ]
+      }
+    }
+  }
+}
