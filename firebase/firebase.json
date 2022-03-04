@@ -1,0 +1,28 @@
+{
+  "hosting": [
+    {
+      "target": "kakapoly-store",
+      "rewrites": [
+        {
+          "source": "**",
+          "run": {
+            "serviceId": "kakapoly-store-hydrogen",
+            "region": "asia-northeast3"
+          }
+        }
+      ]
+    },
+    {
+      "target": "kakapoly-store-dev",
+      "rewrites": [
+        {
+          "source": "**",
+          "run": {
+            "serviceId": "kakapoly-store-hydrogen-dev",
+            "region": "asia-northeast3"
+          }
+        }
+      ]
+    }
+  ]
+}
