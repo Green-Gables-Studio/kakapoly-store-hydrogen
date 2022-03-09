@@ -1,3 +1,55 @@
 {
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "folderTemplates.structures": [
+    {
+      "name": "component",
+      "omitParentDirectory": false,
+      "structure": [
+        {
+          "fileName": "<FTName | pascalcase>.jsx",
+          "template": "component"
+        },
+        {
+          "fileName": "<FTName | pascalcase>.stories.jsx",
+          "template": "stories"
+        }
+      ]
+    }
+  ],
+  "folderTemplates.fileTemplates": {
+    "component": [
+      "import React from 'react';",
+      "import PropTypes from 'prop-types';",
+      "",
+      "<FTName | pascalcase>.propTypes = {",
+      "  children: PropTypes.children,",
+      "};",
+      "",
+      "export default function <FTName | pascalcase>({children}) {",
+      "  return <div>{children}</div>;",
+      "}",
+      ""
+    ],
+    "stories": [
+      "import React from 'react';",
+      "",
+      "import <FTName | pascalcase> from './<FTName | pascalcase>';",
+      "",
+      "// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export",
+      "export default {",
+      "  title: 'Components/<FTName | pascalcase>',",
+      "  component: <FTName | pascalcase>,",
+      "  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes",
+      "  argTypes: {}",
+      "};",
+      "",
+      "// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args",
+      "const Template = (args) => <<FTName | pascalcase> {...args} />;",
+      "",
+      "export const Default = Template.bind({});",
+      "// More on args: https://storybook.js.org/docs/react/writing-stories/args",
+      "Default.args = {};",
+      ""
+    ]
+  }
 }

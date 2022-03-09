@@ -8,10 +8,10 @@ import {
 } from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 
-import LoadMoreProducts from '../../components/service/LoadMoreProducts.client';
-import Layout from '../../components/service/Layout.server';
-import ProductCard from '../../components/service/ProductCard';
-import NotFound from '../../components/service/NotFound.server';
+import LoadMoreProducts from '../../components/LoadMoreProducts.client';
+import Layout from '../../components/Layout.server';
+import ProductCard from '../../components/ProductCard';
+import NotFound from '../../components/NotFound.server';
 
 export default function Collection({
   country = {isoCode: 'US'},
