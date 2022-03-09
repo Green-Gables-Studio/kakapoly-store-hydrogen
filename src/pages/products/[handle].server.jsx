@@ -1,9 +1,9 @@
 import {useShopQuery, ProductProviderFragment, Seo} from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 
-import ProductDetails from '../../components/ProductDetails.client';
-import NotFound from '../../components/NotFound.server';
-import Layout from '../../components/Layout.server';
+import ProductDetails from '../../components/service/ProductDetails.client';
+import NotFound from '../../components/service/NotFound.server';
+import Layout from '../../components/service/Layout.server';
 
 export default function Product({country = {isoCode: 'US'}, params}) {
   const {handle} = params;
