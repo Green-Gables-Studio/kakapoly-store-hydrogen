@@ -10,7 +10,7 @@ import MobileNavigation from './MobileNavigation.client';
 /**
  * A client component that specifies the content of the header on the website
  */
-export default function Header({collections, storeName}) {
+export default function Header({collections, logo}) {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [scrollbarWidth, setScrollbarWidth] = useState(0);
   const {isCartOpen} = useCartUI();
@@ -48,7 +48,7 @@ export default function Header({collections, storeName}) {
               className="font-black uppercase text-3xl tracking-widest"
               to="/"
             >
-              {storeName}
+              {logo}
             </Link>
             <CartToggle
               handleClick={() => {
@@ -56,7 +56,7 @@ export default function Header({collections, storeName}) {
               }}
             />
           </div>
-          <Navigation collections={collections} storeName={storeName} />
+          <Navigation collections={collections} />
         </div>
       </div>
     </header>
