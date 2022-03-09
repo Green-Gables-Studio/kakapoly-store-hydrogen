@@ -8,10 +8,13 @@ import {Listbox} from '@headlessui/react';
 export default function CountrySelector() {
   const availableCountries = useAvailableCountries();
 
-  const countries = useMemo(
-    () => [...availableCountries].sort((a, b) => a.name.localeCompare(b.name)),
-    [availableCountries],
-  );
+  const countries = useMemo(() => {
+    // NOTE: 한국만 선택할 수 있도록 수정함.
+    const onlyKoreaCountries = availableCountries.filter(
+      (country) => country.isoCode === 'KR',
+    );
+    return [...onlyKoreaCountries].sort((a, b) => a.name.localeCompare(b.name));
+  }, [availableCountries]);
 
   const [selectedCountry, setSelectedCountry] = useCountry();
 
@@ -25,11 +28,11 @@ export default function CountrySelector() {
   );
 
   return (
-    <div className="hidden lg:block">
+    <div>
       <Listbox onChange={setCountry}>
         {({open}) => (
           <>
-            <Listbox.Button className="font-medium text-sm h-8 p-2 flex items-center">
+            <Listbox.Button className="font-medium text-base flex items-center">
               <span className="mr-4">{selectedCountry.name}</span>
               <ArrowIcon isOpen={open} />
             </Listbox.Button>
@@ -38,9 +41,9 @@ export default function CountrySelector() {
               <div className="bg-white p-4 rounded-lg drop-shadow-2xl">
                 <Listbox.Option
                   disabled
-                  className="p-2 text-md text-left font-medium uppercase"
+                  className="p-2 text-sm text-left font-medium uppercase"
                 >
-                  Country
+                  언어 및 국가
                 </Listbox.Option>
                 {countries.map((country) => {
                   const isSelected =
@@ -52,11 +55,11 @@ export default function CountrySelector() {
                     >
                       {({active}) => (
                         <div
-                          className={`w-36 py-2 px-3 flex justify-between items-center text-left cursor-pointer rounded
-                          ${active ? 'bg-gray-200' : null}`}
+                          className={`w-36 py-2 px-3 flex justify-between items-center text-left text-sm cursor-pointer rounded
+                          ${active && 'bg-gray-200'}`}
                         >
                           {country.name}
-                          {isSelected ? <CheckIcon /> : null}
+                          <span>{isSelected && <CheckIcon />}</span>
                         </div>
                       )}
                     </Listbox.Option>
@@ -74,6 +77,7 @@ export default function CountrySelector() {
 export function CheckIcon() {
   return (
     <svg
+      className=" stroke-emerald-500"
       width="20"
       height="20"
       viewBox="0 0 20 20"
@@ -83,7 +87,7 @@ export function CheckIcon() {
     >
       <path
         d="M7 10L9 12L13 8M19 10C19 14.9706 14.9706 19 10 19C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1C14.9706 1 19 5.02944 19 10Z"
-        stroke="#354CF6"
+        // stroke="#354CF6"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
