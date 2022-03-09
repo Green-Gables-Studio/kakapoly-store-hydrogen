@@ -9,10 +9,10 @@ import {
 } from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 
-import Layout from '../components/service/Layout.server';
-import FeaturedCollection from '../components/service/FeaturedCollection';
-import ProductCard from '../components/service/ProductCard';
-import Welcome from '../components/service/Welcome.server';
+import Layout from '../components/Layout.server';
+import FeaturedCollection from '../components/FeaturedCollection';
+import ProductCard from '../components/ProductCard';
+import Welcome from '../components/Welcome.server';
 import {Suspense} from 'react';
 
 export default function Index({country = {isoCode: 'US'}}) {

@@ -1,8 +1,8 @@
 import {useShopQuery, RawHtml, Seo} from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 
-import Layout from '../../components/service/Layout.server';
-import NotFound from '../../components/service/NotFound.server';
+import Layout from '../../components/Layout.server';
+import NotFound from '../../components/NotFound.server';
 
 export default function Page({params}) {
   const {handle} = params;
