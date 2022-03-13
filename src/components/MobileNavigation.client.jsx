@@ -2,12 +2,11 @@ import {Fragment, useEffect, useState} from 'react';
 import {Link} from '@shopify/hydrogen/client';
 import {FocusTrap} from '@headlessui/react';
 
-import OpenIcon from './OpenIcon';
+import {GNB_ITEMS} from './Navigation.client';
+import BarsIcon from './ui/BarsIcon';
+import XIcon from './ui/XIcon';
 
-/**
- * A client component that defines the navigation for a mobile storefront
- */
-export default function MobileNavigation({collections, isOpen, setIsOpen}) {
+export default function MobileNavigation({isOpen, setIsOpen}) {
   const OpenFocusTrap = isOpen ? FocusTrap : Fragment;
 
   const [topScrollOffset, setTopScrollOffset] = useState(0);
@@ -23,35 +22,35 @@ export default function MobileNavigation({collections, isOpen, setIsOpen}) {
   }, [isOpen, topScrollOffset]);
 
   return (
-    <div className="lg:hidden">
-      <OpenFocusTrap>
-        <button
-          type="button"
-          className="flex justify-center items-center w-7 h-full"
-          onClick={() => setIsOpen((previousIsOpen) => !previousIsOpen)}
-        >
-          {isOpen ? <CloseIcon /> : <OpenIcon />}
-        </button>
-        {isOpen ? (
-          <div className="fixed -left-0 top-20 w-full h-screen z-10 bg-gray-50 px-4 md:px-12 py-7">
-            <ul>
-              {collections.map((collection) => (
-                <li className="border-b border-gray-200" key={collection.id}>
+    <OpenFocusTrap>
+      <button
+        type="button"
+        className="flex justify-center items-center w-7 h-full"
+        onClick={() => setIsOpen((previousIsOpen) => !previousIsOpen)}
+      >
+        {isOpen ? <XIcon /> : <BarsIcon />}
+      </button>
+      {isOpen ? (
+        <div className="fixed -left-0 top-14 md:top-16 w-full h-screen z-10 bg-gray-50 px-4 md:px-12 py-7">
+          <ul>
+            {GNB_ITEMS.map(({title, to}) => {
+              return (
+                <li className="border-b border-gray-200" key={to}>
                   <Link
-                    className="group py-5 text-gray-700 flex items-center justify-between"
-                    to={`/collections/${collection.handle}`}
+                    className="group py-5 text-gray-700 text-base font-semibold flex items-center justify-between"
+                    to={to}
                     onClick={() => setIsOpen(false)}
                   >
-                    {collection.title}
-                    <ArrowRightIcon className="hidden group-hover:block" />
+                    {title}
+                    <ArrowRightIcon />
                   </Link>
                 </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-      </OpenFocusTrap>
-    </div>
+              );
+            })}
+          </ul>
+        </div>
+      ) : null}
+    </OpenFocusTrap>
   );
 }
 
