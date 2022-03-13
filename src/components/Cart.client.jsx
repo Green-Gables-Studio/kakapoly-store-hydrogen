@@ -59,7 +59,7 @@ export default function Cart() {
 function CartHeader() {
   const {closeCart} = useCartUI();
   return (
-    <header className="border-b border-gray-300 bg-white py-3 px-6 flex justify-between items-center sticky top-0">
+    <header className="border-b border-gray-300 bg-white py-2 px-4 flex justify-between items-center sticky top-0">
       <button type="button" onClick={closeCart}>
         <ArrowIcon />
         <span className="sr-only">Close cart</span>

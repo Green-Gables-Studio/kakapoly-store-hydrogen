@@ -1,10 +1,14 @@
 import React from 'react';
 
+/**
+ * Logo component
+ */
 export default function Logo(props) {
   return (
     <svg
       width={140}
       height={32}
+      viewBox="0 0 140 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}

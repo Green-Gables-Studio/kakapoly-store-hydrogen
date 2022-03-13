@@ -20,6 +20,9 @@ module.exports = {
           },
         },
       }),
+      height: {
+        18: '4.5rem',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
