@@ -10,7 +10,7 @@ import gql from 'graphql-tag';
 import Footer from './Footer.server';
 import Cart from './Cart.client';
 import {Suspense} from 'react';
-import Header from './service/Header.client';
+import Header from './header/Header.client';
 
 /**
  * A server component that defines a structure and organization of a page that can be used in different parts of the Hydrogen app
