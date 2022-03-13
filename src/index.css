@@ -23,6 +23,24 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  /* 24 - 16 */
+  .icon-24 {
+    @apply flex justify-center items-center w-6 h-6;
+  }
+
+  .icon-24 > svg {
+    @apply h-4;
+  }
+
+  /* 28 - 20 */
+  .icon-28 {
+    @apply flex justify-center items-center w-7 h-7;
+  }
+
+  .icon-28 > svg {
+    @apply h-5;
+  }
 }
 
 * {

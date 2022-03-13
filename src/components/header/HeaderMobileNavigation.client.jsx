@@ -2,35 +2,40 @@ import {Fragment, useEffect, useState} from 'react';
 import {Link} from '@shopify/hydrogen/client';
 import {FocusTrap} from '@headlessui/react';
 
-import {GNB_ITEMS} from './Navigation.client';
-import BarsIcon from './ui/BarsIcon';
-import XIcon from './ui/XIcon';
+import {GNB_ITEMS} from './HeaderNavigation';
+import {useHeaderState} from './HeaderStateContext.client';
+import HeaderBarsIcon from './HeaderBarsIcon';
+import HeaderXIcon from './HeaderXIcon';
 
-export default function MobileNavigation({isOpen, setIsOpen}) {
-  const OpenFocusTrap = isOpen ? FocusTrap : Fragment;
+export default function HeaderMobileNavigation() {
+  const {mobileNavOpen, toggleMobileNav} = useHeaderState();
+
+  const OpenFocusTrap = mobileNavOpen ? FocusTrap : Fragment;
 
   const [topScrollOffset, setTopScrollOffset] = useState(0);
 
   useEffect(() => {
-    if (isOpen) {
+    if (mobileNavOpen) {
       setTopScrollOffset(window.scrollY);
       document.body.style.position = 'fixed';
     } else {
       document.body.style.position = '';
       window.scrollTo(0, parseInt(topScrollOffset, 10));
     }
-  }, [isOpen, topScrollOffset]);
+  }, [mobileNavOpen, topScrollOffset]);
 
   return (
     <OpenFocusTrap>
       <button
         type="button"
         className="flex justify-center items-center w-7 h-full"
-        onClick={() => setIsOpen((previousIsOpen) => !previousIsOpen)}
+        onClick={() => {
+          toggleMobileNav();
+        }}
       >
-        {isOpen ? <XIcon /> : <BarsIcon />}
+        {mobileNavOpen ? <HeaderXIcon /> : <HeaderBarsIcon />}
       </button>
-      {isOpen ? (
+      {mobileNavOpen ? (
         <div className="fixed -left-0 top-14 md:top-16 w-full h-screen z-10 bg-gray-50 px-4 md:px-12 py-7">
           <ul>
             {GNB_ITEMS.map(({title, to}) => {
@@ -39,7 +44,9 @@ export default function MobileNavigation({isOpen, setIsOpen}) {
                   <Link
                     className="group py-5 text-gray-700 text-base font-semibold flex items-center justify-between"
                     to={to}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      toggleMobileNav();
+                    }}
                   >
                     {title}
                     <ArrowRightIcon />
@@ -51,26 +58,6 @@ export default function MobileNavigation({isOpen, setIsOpen}) {
         </div>
       ) : null}
     </OpenFocusTrap>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1 17L17 1M1 1L17 17"
-        stroke="black"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }
 

@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Logo component
  */
-export default function Logo(props) {
+export default function LogoSVG(props) {
   return (
     <svg
       width={140}
