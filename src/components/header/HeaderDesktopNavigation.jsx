@@ -1,4 +1,4 @@
-import {Link} from '@shopify/hydrogen';
+import {Link} from '@shopify/hydrogen/client';
 import React from 'react';
 import {GNB_ITEMS} from './HeaderNavigation';
 
