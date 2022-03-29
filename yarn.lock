@@ -280,7 +280,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@headlessui/react@^1.4.1":
+"@headlessui/react@^1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.5.0.tgz#483b44ba2c8b8d4391e1d2c863898d7dd0cc0296"
   integrity sha512-aaRnYxBb3MU2FNJf3Ut9RMTUqqU3as0aI1lQhgo2n9Fa67wRu14iOGqx93xB+uMNVfNwZ5B3y/Ndm7qZGuFeMQ==
@@ -351,10 +351,10 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@shopify/hydrogen@^0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@shopify/hydrogen/-/hydrogen-0.11.1.tgz#495aff5095530780f0f565a46eeb90328034f070"
-  integrity sha512-yVoTzPrMge00v8AzWqDAsU0/ck4kupRPuMY6fm6OtqJHst8y9Os9/zRx07Rd8xx28pVD9PZMW66ODEBmudYdmQ==
+"@shopify/hydrogen@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@shopify/hydrogen/-/hydrogen-0.12.0.tgz#495ca04e4abce206066d76e77c27baacdd9d9743"
+  integrity sha512-Kz8R318FcP6GrzD7zD9jdU+DK1sP6OS7MusTvGBbpykBG8chd6+5fbvsZqQxkzmlKFZNEnM0y35pc0pPIhk9Nw==
   dependencies:
     "@vitejs/plugin-react" "^1.1.1"
     abort-controller "^3.0.0"
@@ -362,7 +362,7 @@
     connect "^3.7.0"
     es-module-lexer "^0.9.0"
     fast-glob "^3.2.5"
-    graphql "^16.0.1"
+    graphql "^16.3.0"
     history "^5.2.0"
     isomorphic-dompurify "^0.13.0"
     kolorist "^1.5.1"
@@ -1973,7 +1973,7 @@ graphql-tag@^2.12.4:
   dependencies:
     tslib "^2.1.0"
 
-graphql@^16.0.1:
+graphql@^16.3.0:
   version "16.3.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.3.0.tgz#a91e24d10babf9e60c706919bb182b53ccdffc05"
   integrity sha512-xm+ANmA16BzCT5pLjuXySbQVFwH3oJctUVdy81w1sV0vBU0KgDdBGtxQOUd5zqOBk/JayAFeG8Dlmeq74rjm/A==
