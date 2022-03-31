@@ -351,7 +351,7 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@shopify/hydrogen@^0.13.0":
+"@shopify/hydrogen@^0.13.1":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/@shopify/hydrogen/-/hydrogen-0.13.2.tgz#1c7da3f51e813fb8b339376c690ccfb136ae26e3"
   integrity sha512-/4KHtvuopKdC2zq3tJm6edIUh8wz4qoWsGZNU6T/TLpkiHmAwT/gT2b36IEKx2itQZIbP4mIvt3WGRPLzhsY2Q==
@@ -1603,7 +1603,7 @@ eslint-plugin-eslint-comments@^3.2.0:
     escape-string-regexp "^1.0.5"
     ignore "^5.0.5"
 
-eslint-plugin-hydrogen@^0.12.0:
+eslint-plugin-hydrogen@^0.12.1:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-hydrogen/-/eslint-plugin-hydrogen-0.12.1.tgz#e82f9c2e3ba22add775782104da12f1edbd7cca0"
   integrity sha512-oHWFqDY6pVxcbJKD0Q0+nO7xR1NiG9xhoIDsbCL7+rgQhPiOd/Xba7VhTRlNOFC94CzBIAZppnb4rkPTlP8cyw==
