@@ -351,7 +351,7 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@shopify/hydrogen@^0.13.1":
+"@shopify/hydrogen@^0.13.2":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/@shopify/hydrogen/-/hydrogen-0.13.2.tgz#1c7da3f51e813fb8b339376c690ccfb136ae26e3"
   integrity sha512-/4KHtvuopKdC2zq3tJm6edIUh8wz4qoWsGZNU6T/TLpkiHmAwT/gT2b36IEKx2itQZIbP4mIvt3WGRPLzhsY2Q==
