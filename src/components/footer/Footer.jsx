@@ -14,7 +14,7 @@ export default function Footer(
   return (
     <footer role="contentinfo">
       <div className="relative bg-white border-t border-b border-black border-opacity-5">
-        <div className="mx-auto max-w-7xl px-4 py-14 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="mx-auto max-w-7xl px-4 py-10 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div>
             <h2 className="text-md font-medium uppercase mb-4">Community</h2>
             <ul className="mt-8 space-y-4">

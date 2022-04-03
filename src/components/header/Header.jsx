@@ -5,6 +5,7 @@ import HeaderCart from './HeaderCart.client';
 import {HeaderStateProvider} from './HeaderStateContext.client';
 
 export default function Header() {
+  // TODO: 여기 max-w-screen-xl로 바꾸기
   return (
     <HeaderStateProvider>
       <HeaderLayout
