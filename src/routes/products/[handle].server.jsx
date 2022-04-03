@@ -24,7 +24,7 @@ export default function ({country = {isoCode: 'KR'}}) {
   return (
     <>
       <Seo type="product" data={product} />
-      <ProductPage data={{product}} />
+      <ProductPage product={product} />
     </>
   );
 }
