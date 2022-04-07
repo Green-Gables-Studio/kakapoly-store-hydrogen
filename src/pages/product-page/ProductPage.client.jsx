@@ -141,8 +141,8 @@ function ProductPageContent() {
               <div className="flex flex-col gap-y-6">
                 {options.map(({name, values}) => {
                   return (
-                    <>
-                      <fieldset key={name}>
+                    <React.Fragment key={name}>
+                      <fieldset>
                         <legend className="mb-4 text-base font-semibold text-gray-900">
                           {name}
                         </legend>
@@ -186,7 +186,7 @@ function ProductPageContent() {
                           </a>
                         )}
                       </fieldset>
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </div>

@@ -1,14 +1,17 @@
-import {useShopQuery, Seo, useRouteParams} from '@shopify/hydrogen';
+import {useShopQuery, Seo, useRouteParams, useShop} from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 import ProductPage from '../../pages/product-page/ProductPage.client';
 
 export default function ({country = {isoCode: 'KR'}}) {
   const {handle} = useRouteParams();
 
+  const {languageCode} = useShop();
+
   const {data} = useShopQuery({
     query: QUERY,
     variables: {
       country: country.isoCode,
+      language: languageCode,
       handle,
     },
     preload: true,
@@ -30,8 +33,11 @@ export default function ({country = {isoCode: 'KR'}}) {
 }
 
 const QUERY = gql`
-  query product($country: CountryCode, $handle: String!)
-  @inContext(country: $country) {
+  query product(
+    $country: CountryCode
+    $language: LanguageCode
+    $handle: String!
+  ) @inContext(country: $country, language: $language) {
     product: product(handle: $handle) {
       compareAtPriceRange {
         maxVariantPrice {
