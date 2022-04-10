@@ -1,6 +1,6 @@
 import {useShopQuery, Seo, useRouteParams, useShop} from '@shopify/hydrogen';
 import gql from 'graphql-tag';
-import ProductPage from '../../pages/product-page/ProductPage.client';
+import ProductPage from '../../components/product-page/ProductPage.client';
 
 export default function ({country = {isoCode: 'KR'}}) {
   const {handle} = useRouteParams();

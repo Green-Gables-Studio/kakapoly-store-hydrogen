@@ -1,7 +1,5 @@
 import {
-  flattenConnection,
   useProduct,
-  ProductProvider,
   ProductTitle,
   ProductDescription,
   ProductPrice,
@@ -13,12 +11,7 @@ import {
 import clsx from 'clsx';
 import React from 'react';
 
-import Layout from '../../components/layout/Layout';
-
-// TODO: 추구 UI단위로 모듈을 쪼갤 필요가 있음
-// TODO: hydrogen이 제공하는 ProductProvider보다 데이터를 직접 계산해서 사용하도록 해야 유연하게 구조를 가져갈 수 있을듯.
-// 지금은 ProductTitle, ProductPrice를 사용하는 컴포넌트를 모듈을 분리할 수 없는 상태임. 따라서 현재는 컴포넌트 분리가 어려움
-function ProductPageContent() {
+export default function Content() {
   const {
     options,
     setSelectedOption,
@@ -236,17 +229,5 @@ function ProductPageContent() {
         <ProductDescription className="prose max-w-none" />
       </div>
     </>
-  );
-}
-
-export default function ProductPage({product}) {
-  const initialVariant = flattenConnection(product.variants)[0];
-
-  return (
-    <Layout>
-      <ProductProvider data={product} initialVariantId={initialVariant.id}>
-        <ProductPageContent />
-      </ProductProvider>
-    </Layout>
   );
 }

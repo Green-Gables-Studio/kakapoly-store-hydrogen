@@ -1,5 +1,4 @@
 import React, {createContext, useContext, useState} from 'react';
-import IndexPageHero from '../../components/index-page-hero/IndexPageHero.client.jsx';
 
 export const IndexPageStateContext = createContext(null);
 
@@ -29,9 +28,5 @@ export function useIndexPageState() {
 }
 
 export default function IndexPage({data}) {
-  return (
-    <IndexPageStateProvider data={data}>
-      <IndexPageHero />
-    </IndexPageStateProvider>
-  );
+  return <IndexPageStateProvider data={data}></IndexPageStateProvider>;
 }
