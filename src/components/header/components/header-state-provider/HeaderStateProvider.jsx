@@ -2,7 +2,7 @@ import {createContext, useContext, useState} from 'react';
 
 export const HeaderStateContext = createContext(null);
 
-export function HeaderStateProvider({children}) {
+export default function HeaderStateProvider({children}) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const toggleMobileNav = () => {

@@ -1,8 +1,8 @@
 import {Link} from '@shopify/hydrogen/client';
 import React from 'react';
-import LogoSVG from '../svg/LogoSVG';
+import LogoSVG from '../../../../components/svg/LogoSVG';
 
-export default function HeaderLogo() {
+export default function Logo() {
   return (
     <Link to="/products">
       <div className="relative">

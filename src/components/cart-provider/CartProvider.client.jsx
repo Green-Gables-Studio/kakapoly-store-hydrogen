@@ -1,7 +1,7 @@
 import {createContext, useCallback, useContext, useMemo, useState} from 'react';
 import {CartProvider as ShopifyCartProvider} from '@shopify/hydrogen/client';
 
-export const CartContext = createContext(null);
+export const CartStateContext = createContext(null);
 
 /**
  * A client component that creates a cart object and provides callbacks that can be accessed by any descendent component using the `useCart` hook and related hooks
@@ -38,8 +38,9 @@ export default function CartProvider({children, numCartLines}) {
     openCart();
   };
 
+  // TODO: CartState와 ShopifyCart가 같이 껴있을 이유가 전혀 없다. 분리하자.
   return (
-    <CartContext.Provider value={contextValue}>
+    <CartStateContext.Provider value={contextValue}>
       <ShopifyCartProvider
         numCartLines={numCartLines}
         onLineAdd={handleLineAdd}
@@ -47,10 +48,10 @@ export default function CartProvider({children, numCartLines}) {
       >
         {children}
       </ShopifyCartProvider>
-    </CartContext.Provider>
+    </CartStateContext.Provider>
   );
 }
 
-export function useCart() {
-  return useContext(CartContext);
+export function useCartState() {
+  return useContext(CartStateContext);
 }
