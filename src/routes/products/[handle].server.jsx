@@ -1,11 +1,4 @@
-import {
-  useShopQuery,
-  Seo,
-  useRouteParams,
-  useShop,
-  flattenConnection,
-} from '@shopify/hydrogen';
-import {ProductProvider} from '@shopify/hydrogen/client';
+import {useShopQuery, Seo, useRouteParams, useShop} from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 import ProductPage from '../../components/product-page/ProductPage.client';
 
@@ -30,14 +23,11 @@ export default function ({country = {isoCode: 'KR'}}) {
     // TODO: Not found page 만들고 적용하기
     return 'not found';
   }
-  const initialVariant = flattenConnection(product.variants)[0];
 
   return (
     <>
       <Seo type="product" data={product} />
-      <ProductProvider data={product} initialVariantId={initialVariant.id}>
-        <ProductPage />
-      </ProductProvider>
+      <ProductPage product={product} />
     </>
   );
 }
