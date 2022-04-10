@@ -1,8 +1,8 @@
 import {Link} from '@shopify/hydrogen/client';
 import React from 'react';
-import {GNB_ITEMS} from './HeaderNavigation';
+import {GNB_ITEMS} from '../navigation/Navigation';
 
-export default function HeaderDesktopNavigation() {
+export default function DesktopNavigation() {
   return (
     <nav className="text-center">
       <ul className="md:flex items-center justify-center">
@@ -11,7 +11,7 @@ export default function HeaderDesktopNavigation() {
             <li key={to}>
               <Link
                 to={to}
-                className="block p-4 text-base font-semibold hover:opacity-80"
+                className="block py-2 text-base font-semibold hover:opacity-80"
               >
                 {title}
               </Link>

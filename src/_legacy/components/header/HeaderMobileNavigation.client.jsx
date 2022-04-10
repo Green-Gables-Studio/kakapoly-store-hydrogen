@@ -3,9 +3,9 @@ import {Link} from '@shopify/hydrogen/client';
 import {FocusTrap} from '@headlessui/react';
 
 import {GNB_ITEMS} from './HeaderNavigation';
-import {useHeaderState} from './HeaderStateContext.client';
 import HeaderBarsIcon from './HeaderBarsIcon';
 import HeaderXIcon from './HeaderXIcon';
+import {useHeaderState} from './HeaderStateContext.client';
 
 export default function HeaderMobileNavigation() {
   const {mobileNavOpen, toggleMobileNav} = useHeaderState();
