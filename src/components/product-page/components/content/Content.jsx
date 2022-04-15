@@ -68,7 +68,7 @@ export default function Content() {
     <>
       <div
         className={clsx(
-          'grid gap-x-8 text-black',
+          'grid md:gap-x-6 lg:gap-x-8 text-black',
           'grid-cols-1',
           'md:grid-cols-[7fr,5fr]',
           'lg:grid-cols-[8fr,4fr]',
@@ -222,7 +222,7 @@ export default function Content() {
           </div>
         </div>
       </div>
-      <div className="my-12">
+      <div className="my-10">
         <div className="border-gray-200 border-t mx-full"></div>
       </div>
       <div className="max-w-[704px] mx-auto">

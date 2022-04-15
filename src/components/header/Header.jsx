@@ -1,21 +1,17 @@
 import Logo from './components/logo/Logo';
 import Navigation from './components/navigation/Navigation';
-import HeaderStateProvider from './components/header-state-provider/HeaderStateProvider';
 import Icon from '../icon/Icon';
 import CartShoppingSVG from '../svg/CartShoppingSVG';
-import {useHeaderState} from './components/header-state-provider/HeaderStateProvider';
-import {useCartState} from '../cart-provider/CartProvider.client';
 import {ICON_TYPE} from '../icon/Icon';
+import {useCartState} from '../../providers/cart-state-provider/CartStateProvider';
 
 function HeaderContent() {
-  const headerState = useHeaderState();
-
   const cartState = useCartState();
 
   return (
     <header className="h-14 md:h-16 lg:h-18" role="banner">
       <div className="fixed z-20 h-14 md:h-16 lg:h-18 w-full border-b border-gray-200 bg-white bg-opacity-95">
-        <div className="h-full flex px-4 md:px-8 max-w-screen-xl mx-auto">
+        <div className="flex px-4 md:px-8 h-14 md:h-16 lg:h-18 max-w-screen-xl mx-auto">
           <div className="text-center w-full flex justify-between items-center">
             <div className="flex-1 flex justify-start">
               <Navigation />
@@ -40,11 +36,7 @@ function HeaderContent() {
 }
 
 export default function Header() {
-  return (
-    <HeaderStateProvider>
-      <HeaderContent />
-    </HeaderStateProvider>
-  );
+  return <HeaderContent />;
 }
 
 function CartShoppingIcon() {
