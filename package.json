@@ -36,12 +36,12 @@
     "vite": "^2.9.0",
     "vitest": "^0.5.9",
     "@shopify/cli": "1.0.9",
-    "@shopify/cli-hydrogen": "1.1.0"
+    "@shopify/cli-hydrogen": "2.0.0"
   },
   "dependencies": {
     "@fortawesome/pro-regular-svg-icons": "^6.1.1",
     "@headlessui/react": "^1.5.0",
-    "@shopify/hydrogen": "^0.16.1",
+    "@shopify/hydrogen": "^0.17.0",
     "body-parser": "^1.19.1",
     "clsx": "^1.1.1",
     "compression": "^1.7.4",

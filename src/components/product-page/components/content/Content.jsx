@@ -82,6 +82,7 @@ export default function Content() {
                 tabIndex="-1"
               >
                 <Image
+                  fetchpriority="high"
                   data={selectedVariant.image}
                   className="w-full h-full md:h-auto object-cover object-center flex-shrink-0 md:flex-shrink-none snap-start md:col-span-2 border border-gray-200 rounded-lg"
                 />
@@ -99,6 +100,7 @@ export default function Content() {
                       key={med.id || med.image.id}
                       className="w-full h-full md:h-auto object-cover object-center transition-all snap-start border border-gray-200 flex-shrink-0 rounded-lg aspect-square"
                       data={med}
+                      fetchpriority="low"
                       options={{
                         height: '485',
                         crop: 'center',
