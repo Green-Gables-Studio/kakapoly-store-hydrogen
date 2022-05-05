@@ -1,4 +1,5 @@
 import React, {createContext, useContext, useState} from 'react';
+import Layout from '../../components/layout/Layout';
 
 export const IndexPageStateContext = createContext(null);
 
@@ -28,5 +29,9 @@ export function useIndexPageState() {
 }
 
 export default function IndexPage({data}) {
-  return <IndexPageStateProvider data={data}></IndexPageStateProvider>;
+  return (
+    <Layout>
+      <IndexPageStateProvider data={data}></IndexPageStateProvider>
+    </Layout>
+  );
 }
