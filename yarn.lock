@@ -719,7 +719,7 @@
     "@oclif/plugin-plugins" "^2.1.0"
     "@shopify/cli-kit" "1.0.9"
 
-"@shopify/hydrogen@^0.17.2":
+"@shopify/hydrogen@^0.17.3":
   version "0.17.3"
   resolved "https://registry.yarnpkg.com/@shopify/hydrogen/-/hydrogen-0.17.3.tgz#33cb07287bdeeca3beb890b66868e1ce294d6844"
   integrity sha512-hxvopln3ohyNr68rrdEi2h1n9XsNJmdrWyqpcVFCRQB18tJHhy+7V1LTFdZYpqE9XTu8llLyf4AruaW3riQWxA==

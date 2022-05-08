@@ -4,10 +4,15 @@ import {
   Route,
   FileRoutes,
   ShopifyProvider,
+  PerformanceMetricsServerAnalyticsConnector,
   CookieSessionStorage,
 } from '@shopify/hydrogen';
 import {Suspense} from 'react';
 import shopifyConfig from '../shopify.config';
+import {
+  PerformanceMetrics,
+  PerformanceMetricsDebug,
+} from '@shopify/hydrogen/client';
 
 function App({routes}) {
   return (
@@ -17,6 +22,8 @@ function App({routes}) {
           <FileRoutes routes={routes} />
           <Route path="*" page={<>Not Found</>} />
         </Router>
+        <PerformanceMetrics />
+        {process.env.LOCAL_DEV && <PerformanceMetricsDebug />}
       </ShopifyProvider>
     </Suspense>
   );
@@ -34,4 +41,5 @@ export default renderHydrogen(App, {
     sameSite: 'strict',
     maxAge: 60 * 60 * 24 * 30,
   }),
+  serverAnalyticsConnectors: [PerformanceMetricsServerAnalyticsConnector],
 });
