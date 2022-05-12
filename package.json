@@ -5,9 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "shopify hydrogen dev",
+    "dev": "cross-env LOCAL_DEV=true shopify hydrogen dev",
     "lint": "npm-run-all lint:*",
-    "lint:js": "eslint --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx src",
+    "lint:js": "eslint --resolve-plugins-relative-to . --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx src",
     "lint:css": "stylelint ./src/**/*.{css,sass,scss}",
     "build": "yarn build:client && yarn build:server && yarn build:worker",
     "build:client": "vite build --outDir dist/client --manifest",
@@ -41,7 +41,7 @@
   "dependencies": {
     "@fortawesome/pro-regular-svg-icons": "^6.1.1",
     "@headlessui/react": "^1.5.0",
-    "@shopify/hydrogen": "^0.17.3",
+    "@shopify/hydrogen": "^0.18.0",
     "body-parser": "^1.20.0",
     "clsx": "^1.1.1",
     "compression": "^1.7.4",
