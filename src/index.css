@@ -26,7 +26,7 @@
 
   /* 24 - 16 */
   .icon-24 {
-    @apply flex justify-center items-center w-6 h-6;
+    @apply flex justify-center items-center w-6 h-6 mx-auto;
   }
 
   .icon-24 > svg {
@@ -35,7 +35,7 @@
 
   /* 28 - 20 */
   .icon-28 {
-    @apply flex justify-center items-center w-7 h-7;
+    @apply flex justify-center items-center w-7 h-7 mx-auto;
   }
 
   .icon-28 > svg {

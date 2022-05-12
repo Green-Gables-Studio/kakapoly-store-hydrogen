@@ -1,15 +1,104 @@
+// src = ../../../..
+import {useEffect, useCallback} from 'react';
 import {
   useProduct,
   ProductTitle,
   ProductDescription,
   ProductPrice,
-  AddToCartButton,
-  BuyNowButton,
   MediaFile,
   Image,
+  useInstantCheckout,
+  useCart,
 } from '@shopify/hydrogen/client';
 import clsx from 'clsx';
-import React from 'react';
+import React, {useState} from 'react';
+import SpinnerThirdSVG from '../../../../components/svg/SpinnerThirdSVG';
+import Icon from '../../../../components/icon/Icon';
+import {PRODUCT_METAFIELDS} from '../../../../contacts';
+import {ICON_TYPE} from '../../../../components/icon/Icon';
+import {useCartState} from '../../../../providers/cart-state-provider/CartStateProvider';
+
+const DEFAULT_CLASSES =
+  'block m-0 w-full items-center justify-center uppercase font-medium text-center px-6 py-4 rounded disabled:border-gray-300 disabled:bg-gray-300 disabled:cursor-not-allowed';
+
+const VARIANT_CLASSES = {
+  primary:
+    'text-white bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700',
+  secondary: 'bg-white hover:bg-gray-50 active:bg-gray-100 border border-black',
+};
+
+const ADD_TO_CART_BUTTON_CLASSES = `${DEFAULT_CLASSES} ${VARIANT_CLASSES.primary}`;
+const CHECKOUT_BUTTON_CLASSES = `${DEFAULT_CLASSES} ${VARIANT_CLASSES.secondary}`;
+
+// gallery
+const MODEL_3D_TYPE = 'MODEL_3D';
+const MODEL_3D_PROPS = {
+  interactionPromptThreshold: '0',
+};
+const VIDEO_TYPE = 'VIDEO';
+const EXTERNAL_VIDEO_TYPE = 'EXTERNAL_VIDEO';
+
+function useAddToCartButton(variantId, quantity) {
+  const [loading, setLoading] = useState(false);
+
+  const {status, linesAdd} = useCart();
+  const {openCart} = useCartState();
+
+  const disabled = loading;
+
+  useEffect(() => {
+    if (loading && status === 'idle') {
+      setLoading(false);
+      openCart();
+    }
+  }, [status, loading, openCart]);
+
+  const handleClick = () => {
+    setLoading(true);
+    linesAdd([
+      {
+        quantity,
+        merchandiseId: variantId,
+      },
+    ]);
+  };
+
+  return {
+    loading,
+    disabled,
+    handleClick,
+  };
+}
+
+function useCheckoutButton(variantId) {
+  const {createInstantCheckout, checkoutUrl} = useInstantCheckout();
+  const [loading, setLoading] = useState(false);
+
+  const disabled = loading;
+  useEffect(() => {
+    if (checkoutUrl) {
+      window.location.href = checkoutUrl;
+    }
+  }, [checkoutUrl]);
+
+  const handleClick = useCallback(() => {
+    setLoading(true);
+    createInstantCheckout({
+      lines: [
+        {
+          quantity: 1,
+          merchandiseId: variantId,
+        },
+      ],
+    });
+  }, [setLoading, createInstantCheckout, variantId]);
+
+  return {
+    loading,
+    disabled,
+    handleClick,
+  };
+}
 
 export default function Content() {
   const {
@@ -19,31 +108,17 @@ export default function Content() {
     media,
     selectedVariant,
     variants,
+    metafields,
   } = useProduct();
 
-  // options
-  const DEFAULT_CLASSES =
-    'block m-0 w-full items-center justify-center uppercase font-medium text-center px-6 py-4 rounded disabled:border-gray-300 disabled:bg-gray-300 disabled:cursor-not-allowed';
+  const unavailableForSale = !selectedVariant.availableForSale;
 
-  const VARIANT_CLASSES = {
-    primary:
-      'text-white bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700',
-    secondary:
-      'bg-white hover:bg-gray-50 active:bg-gray-100 border border-black',
-  };
+  const addToCartButton = useAddToCartButton(selectedVariant.id);
+  const checkoutButton = useCheckoutButton(selectedVariant.id);
 
-  const BUTTON_PRIMARY_CLASSES = `${DEFAULT_CLASSES} ${VARIANT_CLASSES.primary}`;
-  const BUTTON_SECONDARY_CLASSES = `${DEFAULT_CLASSES} ${VARIANT_CLASSES.secondary}`;
-
-  const isOutOfStock = !selectedVariant.availableForSale;
-
-  // gallery
-  const MODEL_3D_TYPE = 'MODEL_3D';
-  const MODEL_3D_PROPS = {
-    interactionPromptThreshold: '0',
-  };
-  const VIDEO_TYPE = 'VIDEO';
-  const EXTERNAL_VIDEO_TYPE = 'EXTERNAL_VIDEO';
+  const pretotyping = metafields.find(
+    (metafield) => metafield.key === PRODUCT_METAFIELDS.PRETOTYPING,
+  )?.value;
 
   const featuredMedia = selectedVariant.image || media[0]?.image;
   const featuredMediaSrc = featuredMedia?.url.split('?')[0];
@@ -76,7 +151,7 @@ export default function Content() {
       >
         <div className="flex flex-col gap-y-6">
           <div>
-            {media.length && (
+            {media.length > 0 && (
               <div
                 className="gap-4 flex md:grid md:grid-cols-2 overflow-x-scroll no-scrollbar scroll-snap-x scroll-smooth md:h-auto place-content-start"
                 tabIndex="-1"
@@ -188,15 +263,12 @@ export default function Content() {
             </div>
             <div className="mt-10">
               <div>
-                {isOutOfStock ? (
+                {unavailableForSale ? (
                   <>
                     <div>
-                      <BuyNowButton
-                        className={BUTTON_SECONDARY_CLASSES}
-                        disabled
-                      >
+                      <button className={CHECKOUT_BUTTON_CLASSES} disabled>
                         일시 품절
-                      </BuyNowButton>
+                      </button>
                       <p className="text-center mt-4">
                         빠른 시일 내에 준비하겠습니다.
                       </p>
@@ -204,19 +276,24 @@ export default function Content() {
                   </>
                 ) : (
                   <div className="flex flex-col gap-y-3">
-                    <AddToCartButton
-                      className={BUTTON_PRIMARY_CLASSES}
-                      disabled={isOutOfStock}
+                    <button
+                      className={ADD_TO_CART_BUTTON_CLASSES}
+                      disabled={addToCartButton.disabled}
+                      onClick={addToCartButton.handleClick}
                     >
-                      장바구니에 담기
-                    </AddToCartButton>
-                    <BuyNowButton
-                      variantId={selectedVariant.id}
-                      className={BUTTON_SECONDARY_CLASSES}
-                      disabled={isOutOfStock}
+                      {addToCartButton.loading ? (
+                        <SpinnerIcon />
+                      ) : (
+                        '장바구니에 담기'
+                      )}
+                    </button>
+                    <button
+                      className={CHECKOUT_BUTTON_CLASSES}
+                      disabled={checkoutButton.disabled}
+                      onClick={checkoutButton.handleClick}
                     >
-                      구매하기
-                    </BuyNowButton>
+                      {checkoutButton.loading ? <SpinnerIcon /> : '구매하기'}
+                    </button>
                   </div>
                 )}
               </div>
@@ -231,5 +308,14 @@ export default function Content() {
         <ProductDescription className="prose max-w-none" />
       </div>
     </>
+  );
+}
+
+function SpinnerIcon() {
+  return (
+    <Icon
+      type={ICON_TYPE[24]}
+      svg={<SpinnerThirdSVG className="animate-spin" fill="white" />}
+    />
   );
 }
