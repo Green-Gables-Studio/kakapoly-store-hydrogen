@@ -12,7 +12,7 @@ export default function Layout({children}) {
     <MobileNavigationStateProvider>
       <CartStateProvider>
         <CartProvider>
-          <div className="min-h-screen max-w-screen text-gray-700 font-sans">
+          <div className="min-h-screen max-w-screen text-gray-900 font-sans">
             <Header />
             <Cart />
             <MobileNavigation />
