@@ -1,3 +1,4 @@
+// src: ../..
 import React from 'react';
 import CartProvider from '../../providers/cart-provider/CartProvider';
 import CartStateProvider from '../../providers/cart-state-provider/CartStateProvider';

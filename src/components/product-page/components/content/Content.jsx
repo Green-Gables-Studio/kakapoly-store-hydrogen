@@ -1,4 +1,4 @@
-// src = ../../../..
+// src: ../../../..
 import {useEffect, useCallback} from 'react';
 import {
   useProduct,
@@ -9,12 +9,16 @@ import {
   Image,
   useInstantCheckout,
   useCart,
+  useNavigate,
 } from '@shopify/hydrogen/client';
 import clsx from 'clsx';
 import React, {useState} from 'react';
 import SpinnerThirdSVG from '../../../../components/svg/SpinnerThirdSVG';
 import Icon from '../../../../components/icon/Icon';
-import {PRODUCT_METAFIELDS} from '../../../../contacts';
+import {
+  PRODUCT_METAFIELD_NAMESPACES,
+  PRODUCT_PRETOTYPING_METAFIELDS,
+} from '../../../../constants';
 import {ICON_TYPE} from '../../../../components/icon/Icon';
 import {useCartState} from '../../../../providers/cart-state-provider/CartStateProvider';
 
@@ -38,23 +42,45 @@ const MODEL_3D_PROPS = {
 const VIDEO_TYPE = 'VIDEO';
 const EXTERNAL_VIDEO_TYPE = 'EXTERNAL_VIDEO';
 
-function useAddToCartButton(variantId, quantity) {
+const ADD_TO_CART_DEFAULT_QUANTITY = 1;
+
+function useAddToCartButton(
+  variantId,
+  quantity,
+  pretotyping = false,
+  sorryPagePath = '',
+) {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
   const {status, linesAdd} = useCart();
+
   const {openCart} = useCartState();
 
   const disabled = loading;
 
   useEffect(() => {
+    if (pretotyping) {
+      return;
+    }
+
     if (loading && status === 'idle') {
       setLoading(false);
       openCart();
     }
-  }, [status, loading, openCart]);
+  }, [status, loading, openCart, pretotyping]);
 
   const handleClick = () => {
     setLoading(true);
+
+    if (pretotyping) {
+      setTimeout(() => {
+        navigate(sorryPagePath);
+      }, 1000);
+      return;
+    }
+
     linesAdd([
       {
         quantity,
@@ -70,7 +96,8 @@ function useAddToCartButton(variantId, quantity) {
   };
 }
 
-function useCheckoutButton(variantId) {
+function useCheckoutButton(variantId, pretotyping = false, sorryPagePath = '') {
+  const navigate = useNavigate();
   const {createInstantCheckout, checkoutUrl} = useInstantCheckout();
   const [loading, setLoading] = useState(false);
 
@@ -83,6 +110,14 @@ function useCheckoutButton(variantId) {
 
   const handleClick = useCallback(() => {
     setLoading(true);
+
+    if (pretotyping) {
+      setTimeout(() => {
+        navigate(sorryPagePath);
+      }, 1000);
+      return;
+    }
+
     createInstantCheckout({
       lines: [
         {
@@ -91,7 +126,7 @@ function useCheckoutButton(variantId) {
         },
       ],
     });
-  }, [setLoading, createInstantCheckout, variantId]);
+  }, [pretotyping, createInstantCheckout, variantId, navigate, sorryPagePath]);
 
   return {
     loading,
@@ -111,14 +146,34 @@ export default function Content() {
     metafields,
   } = useProduct();
 
+  const pretotyping = metafields.find((metafield) => {
+    return (
+      metafield.namespace === PRODUCT_METAFIELD_NAMESPACES.PRETOTYPING &&
+      metafield.key === PRODUCT_PRETOTYPING_METAFIELDS.PRETOTYPING
+    );
+  })?.value;
+
+  const sorryPageHandle = metafields.find((metafield) => {
+    return (
+      metafield.namespace === PRODUCT_METAFIELD_NAMESPACES.PRETOTYPING &&
+      metafield.key === PRODUCT_PRETOTYPING_METAFIELDS.SORRY_PAGE
+    );
+  })?.reference?.handle;
+  const sorryPagePath = `/pages/${sorryPageHandle}`;
+
   const unavailableForSale = !selectedVariant.availableForSale;
 
-  const addToCartButton = useAddToCartButton(selectedVariant.id);
-  const checkoutButton = useCheckoutButton(selectedVariant.id);
-
-  const pretotyping = metafields.find(
-    (metafield) => metafield.key === PRODUCT_METAFIELDS.PRETOTYPING,
-  )?.value;
+  const addToCartButton = useAddToCartButton(
+    selectedVariant.id,
+    ADD_TO_CART_DEFAULT_QUANTITY,
+    pretotyping,
+    sorryPagePath,
+  );
+  const checkoutButton = useCheckoutButton(
+    selectedVariant.id,
+    pretotyping,
+    sorryPagePath,
+  );
 
   const featuredMedia = selectedVariant.image || media[0]?.image;
   const featuredMediaSrc = featuredMedia?.url.split('?')[0];

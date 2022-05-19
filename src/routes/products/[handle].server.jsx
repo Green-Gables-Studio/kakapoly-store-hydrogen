@@ -117,6 +117,10 @@ const QUERY = gql`
             description
             reference {
               __typename
+              ... on Page {
+                id
+                handle
+              }
               ... on MediaImage {
                 id
                 mediaContentType

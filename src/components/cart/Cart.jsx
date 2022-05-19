@@ -1,5 +1,5 @@
+// src: ../..
 import {
-  CartLines,
   useCart,
   useCartLine,
   Link,
@@ -10,6 +10,7 @@ import {
   CartLinePrice,
   CartEstimatedCost,
   CartCheckoutButton,
+  CartLines,
 } from '@shopify/hydrogen/client';
 import React from 'react';
 import {useCartState} from '../../providers/cart-state-provider/CartStateProvider';
@@ -173,6 +174,7 @@ function CartEmpty() {
 export default function Cart() {
   const {open, closeCart} = useCartState();
   const {lines} = useCart();
+  // const {pretotypingLines} = usePretotypingCart();
 
   return (
     <Drawer open={open} title="장바구니" onClose={closeCart}>
