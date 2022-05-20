@@ -10,4 +10,5 @@ export const PRODUCT_GENERAL_METAFIELDS = {
 export const PRODUCT_PRETOTYPING_METAFIELDS = {
   PRETOTYPING: 'pretotyping',
   SORRY_PAGE: 'sorry_page',
+  DATABASE_ID: 'database_id',
 };

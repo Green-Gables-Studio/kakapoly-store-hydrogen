@@ -49,6 +49,7 @@ function useAddToCartButton(
   quantity,
   pretotyping = false,
   sorryPagePath = '',
+  collectData,
 ) {
   const navigate = useNavigate();
 
@@ -71,12 +72,16 @@ function useAddToCartButton(
     }
   }, [status, loading, openCart, pretotyping]);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setLoading(true);
-
     if (pretotyping) {
+      const responseData = await collectData('addToCartButtonClick');
+      if (!responseData) {
+        setLoading(false);
+        return;
+      }
       setTimeout(() => {
-        navigate(sorryPagePath);
+        navigate(`${sorryPagePath}?collectedDataId=${responseData.id}`); // 저장된 데이터의 대상 id를 쏘리페이지에서도 필요할것 같아서 미리 작업해 둠.
       }, 1000);
       return;
     }
@@ -96,7 +101,12 @@ function useAddToCartButton(
   };
 }
 
-function useCheckoutButton(variantId, pretotyping = false, sorryPagePath = '') {
+function useCheckoutButton(
+  variantId,
+  pretotyping = false,
+  sorryPagePath = '',
+  collectData,
+) {
   const navigate = useNavigate();
   const {createInstantCheckout, checkoutUrl} = useInstantCheckout();
   const [loading, setLoading] = useState(false);
@@ -108,12 +118,17 @@ function useCheckoutButton(variantId, pretotyping = false, sorryPagePath = '') {
     }
   }, [checkoutUrl]);
 
-  const handleClick = useCallback(() => {
+  const handleClick = async () => {
     setLoading(true);
 
     if (pretotyping) {
+      const responseData = await collectData('checkoutButtonClick');
+      if (!responseData) {
+        setLoading(false);
+        return;
+      }
       setTimeout(() => {
-        navigate(sorryPagePath);
+        navigate(`${sorryPagePath}?collectedDataId=${responseData.id}`); // 저장된 데이터의 대상 id를 쏘리페이지에서도 필요할것 같아서 미리 작업해 둠.
       }, 1000);
       return;
     }
@@ -126,7 +141,7 @@ function useCheckoutButton(variantId, pretotyping = false, sorryPagePath = '') {
         },
       ],
     });
-  }, [pretotyping, createInstantCheckout, variantId, navigate, sorryPagePath]);
+  };
 
   return {
     loading,
@@ -153,6 +168,13 @@ export default function Content() {
     );
   })?.value;
 
+  const databaseId = metafields.find((metafield) => {
+    return (
+      metafield.namespace === PRODUCT_METAFIELD_NAMESPACES.PRETOTYPING &&
+      metafield.key === PRODUCT_PRETOTYPING_METAFIELDS.DATABASE_ID
+    );
+  })?.value;
+
   const sorryPageHandle = metafields.find((metafield) => {
     return (
       metafield.namespace === PRODUCT_METAFIELD_NAMESPACES.PRETOTYPING &&
@@ -161,6 +183,69 @@ export default function Content() {
   })?.reference?.handle;
   const sorryPagePath = `/pages/${sorryPageHandle}`;
 
+  const collectData = async (event) => {
+    try {
+      if (!databaseId) {
+        throw Error('No database id provided.');
+      }
+      const response = await fetch('/api/notion/pages', {
+        method: 'post',
+        body: JSON.stringify({
+          parent: {
+            database_id: databaseId,
+          },
+          properties: {
+            Name: {
+              title: [
+                {
+                  text: {
+                    content: 'Knock Knock!',
+                  },
+                },
+              ],
+            },
+            Event: {
+              rich_text: [
+                {
+                  type: 'text',
+                  text: {
+                    content: event,
+                  },
+                },
+              ],
+            },
+            Data: {
+              rich_text: [
+                {
+                  type: 'text',
+                  text: {
+                    content: JSON.stringify(selectedOptions, null, 2),
+                  },
+                },
+              ],
+            },
+
+            Environment: {
+              rich_text: [
+                {
+                  type: 'text',
+                  text: {
+                    content: process.env.NODE_ENV,
+                  },
+                },
+              ],
+            },
+          },
+        }),
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  };
+
   const unavailableForSale = !selectedVariant.availableForSale;
 
   const addToCartButton = useAddToCartButton(
@@ -168,11 +253,13 @@ export default function Content() {
     ADD_TO_CART_DEFAULT_QUANTITY,
     pretotyping,
     sorryPagePath,
+    collectData,
   );
   const checkoutButton = useCheckoutButton(
     selectedVariant.id,
     pretotyping,
     sorryPagePath,
+    collectData,
   );
 
   const featuredMedia = selectedVariant.image || media[0]?.image;
