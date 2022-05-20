@@ -1,4 +1,4 @@
-// src = ../../../..
+// src: ../../../..
 import {useEffect, useCallback} from 'react';
 import {
   useProduct,
@@ -9,12 +9,16 @@ import {
   Image,
   useInstantCheckout,
   useCart,
+  useNavigate,
 } from '@shopify/hydrogen/client';
 import clsx from 'clsx';
 import React, {useState} from 'react';
 import SpinnerThirdSVG from '../../../../components/svg/SpinnerThirdSVG';
 import Icon from '../../../../components/icon/Icon';
-import {PRODUCT_METAFIELDS} from '../../../../contacts';
+import {
+  PRODUCT_METAFIELD_NAMESPACES,
+  PRODUCT_PRETOTYPING_METAFIELDS,
+} from '../../../../constants';
 import {ICON_TYPE} from '../../../../components/icon/Icon';
 import {useCartState} from '../../../../providers/cart-state-provider/CartStateProvider';
 
@@ -38,23 +42,50 @@ const MODEL_3D_PROPS = {
 const VIDEO_TYPE = 'VIDEO';
 const EXTERNAL_VIDEO_TYPE = 'EXTERNAL_VIDEO';
 
-function useAddToCartButton(variantId, quantity) {
+const ADD_TO_CART_DEFAULT_QUANTITY = 1;
+
+function useAddToCartButton(
+  variantId,
+  quantity,
+  pretotyping = false,
+  sorryPagePath = '',
+  collectData,
+) {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
   const {status, linesAdd} = useCart();
+
   const {openCart} = useCartState();
 
   const disabled = loading;
 
   useEffect(() => {
+    if (pretotyping) {
+      return;
+    }
+
     if (loading && status === 'idle') {
       setLoading(false);
       openCart();
     }
-  }, [status, loading, openCart]);
+  }, [status, loading, openCart, pretotyping]);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setLoading(true);
+    if (pretotyping) {
+      const responseData = await collectData('addToCartButtonClick');
+      if (!responseData) {
+        setLoading(false);
+        return;
+      }
+      setTimeout(() => {
+        navigate(`${sorryPagePath}?collectedDataId=${responseData.id}`); // 저장된 데이터의 대상 id를 쏘리페이지에서도 필요할것 같아서 미리 작업해 둠.
+      }, 1000);
+      return;
+    }
+
     linesAdd([
       {
         quantity,
@@ -70,7 +101,13 @@ function useAddToCartButton(variantId, quantity) {
   };
 }
 
-function useCheckoutButton(variantId) {
+function useCheckoutButton(
+  variantId,
+  pretotyping = false,
+  sorryPagePath = '',
+  collectData,
+) {
+  const navigate = useNavigate();
   const {createInstantCheckout, checkoutUrl} = useInstantCheckout();
   const [loading, setLoading] = useState(false);
 
@@ -81,8 +118,21 @@ function useCheckoutButton(variantId) {
     }
   }, [checkoutUrl]);
 
-  const handleClick = useCallback(() => {
+  const handleClick = async () => {
     setLoading(true);
+
+    if (pretotyping) {
+      const responseData = await collectData('checkoutButtonClick');
+      if (!responseData) {
+        setLoading(false);
+        return;
+      }
+      setTimeout(() => {
+        navigate(`${sorryPagePath}?collectedDataId=${responseData.id}`); // 저장된 데이터의 대상 id를 쏘리페이지에서도 필요할것 같아서 미리 작업해 둠.
+      }, 1000);
+      return;
+    }
+
     createInstantCheckout({
       lines: [
         {
@@ -91,7 +141,7 @@ function useCheckoutButton(variantId) {
         },
       ],
     });
-  }, [setLoading, createInstantCheckout, variantId]);
+  };
 
   return {
     loading,
@@ -111,14 +161,106 @@ export default function Content() {
     metafields,
   } = useProduct();
 
+  const pretotyping = metafields.find((metafield) => {
+    return (
+      metafield.namespace === PRODUCT_METAFIELD_NAMESPACES.PRETOTYPING &&
+      metafield.key === PRODUCT_PRETOTYPING_METAFIELDS.PRETOTYPING
+    );
+  })?.value;
+
+  const databaseId = metafields.find((metafield) => {
+    return (
+      metafield.namespace === PRODUCT_METAFIELD_NAMESPACES.PRETOTYPING &&
+      metafield.key === PRODUCT_PRETOTYPING_METAFIELDS.DATABASE_ID
+    );
+  })?.value;
+
+  const sorryPageHandle = metafields.find((metafield) => {
+    return (
+      metafield.namespace === PRODUCT_METAFIELD_NAMESPACES.PRETOTYPING &&
+      metafield.key === PRODUCT_PRETOTYPING_METAFIELDS.SORRY_PAGE
+    );
+  })?.reference?.handle;
+  const sorryPagePath = `/pages/${sorryPageHandle}`;
+
+  const collectData = async (event) => {
+    try {
+      if (!databaseId) {
+        throw Error('No database id provided.');
+      }
+      const response = await fetch('/api/notion/pages', {
+        method: 'post',
+        body: JSON.stringify({
+          parent: {
+            database_id: databaseId,
+          },
+          properties: {
+            Name: {
+              title: [
+                {
+                  text: {
+                    content: 'Knock Knock!',
+                  },
+                },
+              ],
+            },
+            Event: {
+              rich_text: [
+                {
+                  type: 'text',
+                  text: {
+                    content: event,
+                  },
+                },
+              ],
+            },
+            Data: {
+              rich_text: [
+                {
+                  type: 'text',
+                  text: {
+                    content: JSON.stringify(selectedOptions, null, 2),
+                  },
+                },
+              ],
+            },
+
+            Environment: {
+              rich_text: [
+                {
+                  type: 'text',
+                  text: {
+                    content: process.env.NODE_ENV,
+                  },
+                },
+              ],
+            },
+          },
+        }),
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  };
+
   const unavailableForSale = !selectedVariant.availableForSale;
 
-  const addToCartButton = useAddToCartButton(selectedVariant.id);
-  const checkoutButton = useCheckoutButton(selectedVariant.id);
-
-  const pretotyping = metafields.find(
-    (metafield) => metafield.key === PRODUCT_METAFIELDS.PRETOTYPING,
-  )?.value;
+  const addToCartButton = useAddToCartButton(
+    selectedVariant.id,
+    ADD_TO_CART_DEFAULT_QUANTITY,
+    pretotyping,
+    sorryPagePath,
+    collectData,
+  );
+  const checkoutButton = useCheckoutButton(
+    selectedVariant.id,
+    pretotyping,
+    sorryPagePath,
+    collectData,
+  );
 
   const featuredMedia = selectedVariant.image || media[0]?.image;
   const featuredMediaSrc = featuredMedia?.url.split('?')[0];
