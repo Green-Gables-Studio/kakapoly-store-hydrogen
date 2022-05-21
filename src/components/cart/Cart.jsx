@@ -77,7 +77,7 @@ export function CartLine() {
         <Link to={`/products/${merchandise.product.handle}`}>
           <CartLineImage
             className="bg-white border border-black border-opacity-5 rounded-lg"
-            options={{width: 80, height: 80, crop: 'center'}}
+            loaderOptions={{width: 80, height: 80, crop: 'center'}}
           />
         </Link>
       </div>
