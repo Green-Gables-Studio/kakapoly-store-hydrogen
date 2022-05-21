@@ -1,17 +1,24 @@
-import {useShopQuery, Seo, useRouteParams, useShop} from '@shopify/hydrogen';
+import {
+  useShopQuery,
+  Seo,
+  useRouteParams,
+  useShop,
+  useSession,
+} from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 import React from 'react';
 import ProductPage from '../../components/product-page/ProductPage.client';
 
-export default function ({country = {isoCode: 'KR'}}) {
+export default function () {
   const {handle} = useRouteParams();
+  const {countryCode = 'US'} = useSession();
 
   const {languageCode} = useShop();
 
   const {data} = useShopQuery({
     query: QUERY,
     variables: {
-      country: country.isoCode,
+      country: countryCode,
       language: languageCode,
       handle,
     },
