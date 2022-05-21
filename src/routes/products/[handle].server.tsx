@@ -6,6 +6,7 @@ import {
   useSession,
 } from '@shopify/hydrogen';
 import gql from 'graphql-tag';
+import React from 'react';
 import ProductPage from '../../components/product-page/ProductPage.client';
 
 export default function () {
@@ -24,7 +25,7 @@ export default function () {
     preload: true,
   });
 
-  const {product} = data;
+  const {product} = data as any;
 
   if (!product) {
     // TODO: Not found page 만들고 적용하기
