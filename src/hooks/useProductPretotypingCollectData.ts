@@ -3,6 +3,7 @@ import {SelectedOptions} from '@shopify/hydrogen/client';
 export default function useProductPretotypingCollectData(
   databaseId: string,
   selectedOptions: SelectedOptions,
+  quantity: number,
 ) {
   const collectData = async (event: any) => {
     try {
@@ -40,7 +41,14 @@ export default function useProductPretotypingCollectData(
                 {
                   type: 'text',
                   text: {
-                    content: JSON.stringify(selectedOptions, null, 2),
+                    content: JSON.stringify(
+                      {
+                        selectedOptions,
+                        quantity,
+                      },
+                      null,
+                      2,
+                    ),
                   },
                 },
               ],

@@ -7,10 +7,10 @@ import {
 } from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 import React from 'react';
-import ProductPage from '../../components/product-page/ProductPage.client';
+import ProductPage from '../../../components/product-page/ProductPage.client';
 
 export default function () {
-  const {handle} = useRouteParams();
+  const {productHandle} = useRouteParams();
   const {countryCode = 'US'} = useSession();
 
   const {languageCode} = useShop();
@@ -20,7 +20,7 @@ export default function () {
     variables: {
       country: countryCode,
       language: languageCode,
-      handle,
+      handle: productHandle,
     },
     preload: true,
   });
@@ -34,7 +34,13 @@ export default function () {
 
   return (
     <>
-      <Seo type="product" data={product} />
+      <Seo
+        type="product"
+        data={{
+          ...product,
+          title: `${product.title} | 카카폴리 스토어`,
+        }}
+      />
       <ProductPage product={product} />
     </>
   );

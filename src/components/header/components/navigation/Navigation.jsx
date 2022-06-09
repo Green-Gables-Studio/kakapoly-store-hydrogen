@@ -8,7 +8,7 @@ import {useMobileNavigationState} from '../../../../providers/mobile-navigation-
 export const GNB_ITEMS = [
   {
     title: '제품',
-    to: '/products',
+    to: '#', // TODO: 테스트 기간이 끝나면 홈으로 이동하기
   },
 ];
 
