@@ -1,4 +1,4 @@
-import {ProductPrice} from '@shopify/hydrogen/client';
+import {ProductPrice} from '@shopify/hydrogen';
 import React from 'react';
 
 type Props = {

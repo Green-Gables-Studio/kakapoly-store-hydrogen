@@ -1,4 +1,4 @@
-import {Link} from '@shopify/hydrogen/client';
+import {Link} from '@shopify/hydrogen';
 import React from 'react';
 import {useMobileNavigationState} from '../../providers/mobile-navigation-state-provider/MobileNavigationStateProvider';
 import Drawer from '../drawer/Drawer.client';

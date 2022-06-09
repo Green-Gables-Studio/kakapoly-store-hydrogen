@@ -1,4 +1,4 @@
-import {Link} from '@shopify/hydrogen/client';
+import {Link} from '@shopify/hydrogen';
 import React from 'react';
 import LogoSVG from '../../../../components/svg/LogoSVG';
 

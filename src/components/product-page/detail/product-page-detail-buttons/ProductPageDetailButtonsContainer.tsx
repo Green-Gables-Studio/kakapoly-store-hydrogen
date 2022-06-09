@@ -1,4 +1,4 @@
-import {useProduct} from '@shopify/hydrogen/client';
+import {useProduct} from '@shopify/hydrogen';
 import React from 'react';
 import ProductPageDetailButtons from './ProductPageDetailButtons';
 

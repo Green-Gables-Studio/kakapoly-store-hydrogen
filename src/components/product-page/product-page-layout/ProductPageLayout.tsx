@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React, {ReactNode} from 'react';
-import Layout from '../../../layout/Layout';
+import Layout from '../../layout/Layout';
 
 type Props = {
   gallery: ReactNode;

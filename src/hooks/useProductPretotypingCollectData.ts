@@ -1,4 +1,4 @@
-import {SelectedOptions} from '@shopify/hydrogen/client';
+import {SelectedOptions} from '@shopify/hydrogen';
 
 export default function useProductPretotypingCollectData(
   databaseId: string,

@@ -1,9 +1,9 @@
 import {
-  useNavigate,
   useInstantCheckout,
   useProduct,
   useRouteParams,
-} from '@shopify/hydrogen/client';
+} from '@shopify/hydrogen';
+import {useNavigate} from '@shopify/hydrogen/client';
 import React, {useEffect, useState} from 'react';
 import useProductPretotypingCollectData from '../../../../hooks/useProductPretotypingCollectData';
 import useProductPretotypingMetafields from '../../../../hooks/useProductPretotypingMetafields';

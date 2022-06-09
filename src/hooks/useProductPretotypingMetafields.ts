@@ -1,4 +1,4 @@
-import {useProduct} from '@shopify/hydrogen/client';
+import {useProduct} from '@shopify/hydrogen';
 import {ParsedMetafield} from '@shopify/hydrogen/dist/esnext/types';
 import {
   PRODUCT_METAFIELD_NAMESPACES,
