@@ -4,18 +4,19 @@ type Props = {
   sections: ReactNode[];
 };
 
-export default function ProductPageDetailLayout({sections}: Props) {
+const ProductPageSectionsLayout = ({sections}: Props) => {
   return (
-    <div className="md:sticky md:top-[112px]">
+    <div>
       {sections.map((section, index) => {
-        const lastIndex = index !== sections.length - 1;
         return (
           <React.Fragment key={index}>
-            {section}
-            {lastIndex && <hr className="my-8" />}
+            <hr className="my-10" />
+            <div className="max-w-[704px] mx-auto">{section}</div>
           </React.Fragment>
         );
       })}
     </div>
   );
-}
+};
+
+export default ProductPageSectionsLayout;

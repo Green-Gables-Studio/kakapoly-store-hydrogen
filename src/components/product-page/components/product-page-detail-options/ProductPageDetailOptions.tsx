@@ -1,5 +1,10 @@
-import {OptionWithValues, SelectedOptions} from '@shopify/hydrogen/client';
+import {
+  OptionWithValues,
+  SelectedOptions,
+  useRouteParams,
+} from '@shopify/hydrogen/client';
 import React from 'react';
+import {SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1} from '../../../contents/products/sign-of-the-deathly-hallows-t-shirt-black-test-1/ProductsSignOfTheDeathlyHallowsTShirtBlackTest1.constants';
 
 type Props = {
   options: OptionWithValues[];
@@ -12,6 +17,17 @@ export default function ProductPageDetailOptions({
   selectedOptions,
   onOptionValueChange,
 }: Props) {
+  const {productHandle} = useRouteParams();
+
+  let sizeGuidePath = '';
+
+  if (
+    productHandle === SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.HANDLE
+  ) {
+    const {SIZE_GUIDE_PATH} = SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1;
+    sizeGuidePath = SIZE_GUIDE_PATH;
+  }
+
   return (
     <div className="flex flex-col gap-y-6">
       {options?.map((option) => {
@@ -55,12 +71,21 @@ export default function ProductPageDetailOptions({
                 })}
               </div>
               {name === '사이즈' && (
-                <a
-                  href="#size-chart"
-                  className="block underline text-gray-500 text-sm tracking-wide mt-4"
-                >
-                  사이즈 표
-                </a>
+                <div className="mt-4">
+                  <a
+                    href="#"
+                    className="underline text-gray-500 text-sm font-medium"
+                    onClick={() => {
+                      window.open(
+                        `${sizeGuidePath}`,
+                        '',
+                        'popup,width=610,height=700',
+                      );
+                    }}
+                  >
+                    사이즈 정보 알아보기
+                  </a>
+                </div>
               )}
             </fieldset>
           </React.Fragment>

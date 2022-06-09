@@ -1,13 +1,14 @@
 // src = ../..
 import {useShop, useShopQuery, Seo} from '@shopify/hydrogen';
 import gql from 'graphql-tag';
+import React from 'react';
 import PagePage from '../../components/page-page/PagePage.client';
 
-export default function Page({params}) {
+export default function Page({params}: {params: any}) {
   const {languageCode} = useShop();
 
   const {handle} = params;
-  const {data} = useShopQuery({
+  const {data} = useShopQuery<any>({
     query: QUERY,
     variables: {language: languageCode, handle},
   });
@@ -21,7 +22,13 @@ export default function Page({params}) {
 
   return (
     <>
-      <Seo type="page" data={page} />
+      <Seo
+        type="page"
+        data={{
+          ...page,
+          title: `${page.title} | 카카폴리 스토어`,
+        }}
+      />
       <PagePage page={page} />
     </>
   );

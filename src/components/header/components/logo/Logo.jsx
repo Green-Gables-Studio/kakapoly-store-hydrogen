@@ -4,7 +4,8 @@ import LogoSVG from '../../../../components/svg/LogoSVG';
 
 export default function Logo() {
   return (
-    <Link to="/products">
+    // TODO: 테스트 기간이 끝나면 홈으로 이동하기
+    <Link to="#">
       <div className="relative">
         <div className="h-6">
           <LogoSVG className="w-full h-full" />
