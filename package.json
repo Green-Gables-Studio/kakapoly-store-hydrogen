@@ -41,11 +41,10 @@
   "dependencies": {
     "@fortawesome/pro-regular-svg-icons": "^6.1.1",
     "@headlessui/react": "^1.5.0",
-    "@shopify/hydrogen": "^0.22.0",
+    "@shopify/hydrogen": "^0.22.1",
     "body-parser": "^1.20.0",
     "clsx": "^1.1.1",
     "compression": "^1.7.4",
-    "graphql-tag": "^2.12.4",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "serve-static": "^1.14.1"
