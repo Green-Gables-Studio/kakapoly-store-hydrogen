@@ -1,6 +1,5 @@
 // src = ../..
-import {useShop, useShopQuery, Seo} from '@shopify/hydrogen';
-import gql from 'graphql-tag';
+import {useShop, useShopQuery, Seo, gql} from '@shopify/hydrogen';
 import React from 'react';
 import PagePage from '../../components/page-page/PagePage.client';
 

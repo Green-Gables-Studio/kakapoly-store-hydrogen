@@ -18,7 +18,7 @@ function App() {
           <Route path="*" page={<>Not Found</>} />
         </Router>
         <PerformanceMetrics />
-        {process.env.LOCAL_DEV && <PerformanceMetricsDebug />}
+        {import.meta.env.DEV && <PerformanceMetricsDebug />}
       </ShopifyProvider>
     </Suspense>
   );

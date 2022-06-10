@@ -4,8 +4,8 @@ import {
   useRouteParams,
   useShop,
   useSession,
+  gql,
 } from '@shopify/hydrogen';
-import gql from 'graphql-tag';
 import React from 'react';
 import ProductPage from '../../../components/product-page/ProductPage.client';
 

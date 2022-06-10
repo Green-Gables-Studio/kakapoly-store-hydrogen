@@ -1,7 +1,6 @@
 import React from 'react';
 import IndexPage from '../pages/index-page/IndexPage.client';
-import gql from 'graphql-tag';
-import {CacheDays, Seo, useShopQuery} from '@shopify/hydrogen';
+import {CacheDays, Seo, useShopQuery, gql} from '@shopify/hydrogen';
 
 export default function () {
   const dummyDataFromAServer = {

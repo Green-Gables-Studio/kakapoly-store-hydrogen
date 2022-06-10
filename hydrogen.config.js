@@ -5,7 +5,6 @@ import {
 } from '@shopify/hydrogen';
 
 export default defineConfig({
-  routes: import.meta.globEager('./src/routes/**/*.server.[jt](s|sx)'),
   shopify: {
     storeDomain: 'kakapoly.myshopify.com',
     storefrontToken: 'd1adb9b5aed22369844f76545b22d8bd',
