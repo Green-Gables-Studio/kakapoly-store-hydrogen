@@ -63,7 +63,8 @@ export default function Footer() {
                       <li key={label}>
                         <Link
                           prefetch={false}
-                          to={to}
+                          // to={to}
+                          to="#" // TODO: 테스트 기간이 끝나면 제대로된 경로로 이동하기
                           className="text-sm font-medium text-gray-600 hover:text-gray-900"
                         >
                           {label}
@@ -88,7 +89,8 @@ export default function Footer() {
                   <Link
                     key={link.to}
                     prefetch={false}
-                    to={link.to}
+                    // to={link.to}
+                    to="#" // TODO: 테스트 기간이 끝나면 제대로된 경로로 이동하기
                     className="text-sm font-medium text-gray-600 hover:text-gray-900"
                   >
                     {link.label}
