@@ -23,7 +23,5 @@ export default function ProductPageGalleryContainer({}: Props) {
     return acc;
   }, []);
 
-  console.log({images});
-
   return <ProductPageGallery images={images} />;
 }
