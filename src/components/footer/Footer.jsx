@@ -100,7 +100,7 @@ export default function Footer() {
             </div>
             <br />
             <p>
-              대표자: 권혁우 | 주소: 서울시 강남구 테헤란로 82길 15, 176 |
+              대표자: 권혁우 | 주소: 서울특별시 종로구 창경궁로 147-1, 2D1호 |
               전화번호: 070-8064-3301 | E-mail: help@store.kakapoly.com
             </p>
             <p>
