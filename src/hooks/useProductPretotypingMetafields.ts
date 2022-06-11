@@ -1,18 +1,17 @@
-import {useProduct} from '@shopify/hydrogen/client';
-import {ParsedMetafield} from '@shopify/hydrogen/dist/esnext/types';
 import {
   PRODUCT_METAFIELD_NAMESPACES,
   PRODUCT_PRETOTYPING_METAFIELDS,
 } from '../constants';
+import {useProductPageState} from '../providers/product-page-state-provider/ProductPageStateProvider';
 
 export default function useProductPretotypingMetafields() {
-  const product = useProduct();
+  const {product} = useProductPageState();
 
   if (!product) {
     throw new Error('Expected a ProductProvider context, but none was found');
   }
 
-  const metafields = product.metafields as (ParsedMetafield | undefined)[];
+  const metafields = product.metafields.nodes;
 
   const pretotyping = metafields?.find((metafield) => {
     return (

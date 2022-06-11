@@ -1,10 +1,14 @@
 import renderHydrogen from '@shopify/hydrogen/entry-server';
-import {Router, Route, FileRoutes, ShopifyProvider} from '@shopify/hydrogen';
-import {Suspense} from 'react';
 import {
+  Router,
+  Route,
+  FileRoutes,
+  ShopifyProvider,
+  ShopifyAnalytics,
   PerformanceMetrics,
   PerformanceMetricsDebug,
-} from '@shopify/hydrogen/client';
+} from '@shopify/hydrogen';
+import {Suspense} from 'react';
 
 function App() {
   return (
@@ -15,7 +19,8 @@ function App() {
           <Route path="*" page={<>Not Found</>} />
         </Router>
         <PerformanceMetrics />
-        {process.env.LOCAL_DEV && <PerformanceMetricsDebug />}
+        {import.meta.env.DEV && <PerformanceMetricsDebug />}
+        <ShopifyAnalytics />
       </ShopifyProvider>
     </Suspense>
   );

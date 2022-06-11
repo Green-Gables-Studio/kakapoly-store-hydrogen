@@ -2,10 +2,10 @@ import {defineConfig} from '@shopify/hydrogen/config';
 import {
   CookieSessionStorage,
   PerformanceMetricsServerAnalyticsConnector,
+  ShopifyServerAnalyticsConnector,
 } from '@shopify/hydrogen';
 
 export default defineConfig({
-  routes: import.meta.globEager('./src/routes/**/*.server.[jt](s|sx)'),
   shopify: {
     storeDomain: 'kakapoly.myshopify.com',
     storefrontToken: 'd1adb9b5aed22369844f76545b22d8bd',
@@ -18,5 +18,9 @@ export default defineConfig({
     sameSite: 'strict',
     maxAge: 60 * 60 * 24 * 30,
   }),
-  serverAnalyticsConnectors: [PerformanceMetricsServerAnalyticsConnector],
+
+  serverAnalyticsConnectors: [
+    PerformanceMetricsServerAnalyticsConnector,
+    ShopifyServerAnalyticsConnector,
+  ],
 });

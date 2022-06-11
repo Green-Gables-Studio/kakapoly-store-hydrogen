@@ -1,26 +1,21 @@
-import {
-  useCart,
-  useNavigate,
-  useProduct,
-  useRouteParams,
-} from '@shopify/hydrogen/client';
+import {useInstantCheckout, useRouteParams} from '@shopify/hydrogen';
+import {useProductOptions} from '@shopify/hydrogen/dist/esnext/hooks/useProductOptions/useProductOptions.client';
+import {useNavigate} from '@shopify/hydrogen/client';
 import React, {useEffect, useState} from 'react';
 import useProductPretotypingCollectData from '../../../../hooks/useProductPretotypingCollectData';
 import useProductPretotypingMetafields from '../../../../hooks/useProductPretotypingMetafields';
-import {useCartState} from '../../../../providers/cart-state-provider/CartStateProvider';
 import {useProductPageState} from '../../../../providers/product-page-state-provider/ProductPageStateProvider';
-import ProductPageDetailAddToCartButton from './ProductPageDetailAddToCartButton';
+import ProductPageDetailCheckoutButton from './ProductPageDetailCheckoutButton';
 
 type Props = {};
 
-export default function ProductPageDetailAddToCartButtonContainer({}: Props) {
+export default function ProductPageDetailCheckoutButtonContainer({}: Props) {
   const [loading, setLoading] = useState(false);
   const {productHandle} = useRouteParams();
   const navigate = useNavigate();
-  const {status, linesAdd} = useCart();
-  const {openCart}: any = useCartState();
+  const {createInstantCheckout, checkoutUrl} = useInstantCheckout();
   const {quantity} = useProductPageState();
-  const {selectedOptions, selectedVariant} = useProduct();
+  const {selectedOptions, selectedVariant} = useProductOptions();
   const pretotypingMetafields = useProductPretotypingMetafields();
 
   const pretotyping = pretotypingMetafields.pretotyping?.value as
@@ -38,11 +33,17 @@ export default function ProductPageDetailAddToCartButtonContainer({}: Props) {
 
   const disabled = loading;
 
+  useEffect(() => {
+    if (checkoutUrl) {
+      window.location.href = checkoutUrl;
+    }
+  }, [checkoutUrl]);
+
   const handleClick = async () => {
     setLoading(true);
 
     if (pretotyping) {
-      const responseData = await collectData('addToCartButtonClick');
+      const responseData = await collectData('checkoutButtonClick');
 
       if (!responseData) {
         setLoading(false);
@@ -55,30 +56,20 @@ export default function ProductPageDetailAddToCartButtonContainer({}: Props) {
       return;
     }
 
-    linesAdd([
-      {
-        quantity,
-        merchandiseId: selectedVariant?.id ?? '',
-      },
-    ]);
+    createInstantCheckout({
+      lines: [
+        {
+          quantity,
+          merchandiseId: selectedVariant?.id ?? '',
+        },
+      ],
+    });
   };
-
-  useEffect(() => {
-    if (pretotyping) {
-      return;
-    }
-
-    if (loading && status === 'idle') {
-      setLoading(false);
-      openCart();
-    }
-  }, [status, loading, openCart, pretotyping]);
-
   return (
-    <ProductPageDetailAddToCartButton
+    <ProductPageDetailCheckoutButton
+      loading={loading}
       disabled={disabled}
       onClick={handleClick}
-      loading={loading}
     />
   );
 }

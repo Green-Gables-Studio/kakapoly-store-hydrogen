@@ -11,7 +11,7 @@ import {
   CartEstimatedCost,
   CartCheckoutButton,
   CartLines,
-} from '@shopify/hydrogen/client';
+} from '@shopify/hydrogen';
 import React from 'react';
 import {useCartState} from '../../providers/cart-state-provider/CartStateProvider';
 import Drawer from '../drawer/Drawer.client';

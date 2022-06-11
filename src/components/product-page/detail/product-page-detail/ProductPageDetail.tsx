@@ -1,5 +1,4 @@
-import {ProductTitle, useRouteParams} from '@shopify/hydrogen/client';
-import clsx from 'clsx';
+import {useRouteParams} from '@shopify/hydrogen';
 import React from 'react';
 import ProductPageDetailLayout from '../product-page-detail-layout/ProductPageDetailLayout';
 import ProductPageDetailPriceContainer from '../product-page-detail-price/ProductPageDetailPriceContainer';
@@ -8,6 +7,7 @@ import ProductPageDetailButtonsContainer from '../product-page-detail-buttons/Pr
 import ProductsSignOfTheDeathlyHallowsTShirtBlackTest1DetailDescription from '../../../contents/products/sign-of-the-deathly-hallows-t-shirt-black-test-1/ProductsSignOfTheDeathlyHallowsTShirtBlackTest1DetailDescription';
 import ProductPageDetailQuantityContainer from '../product-page-detail-quantity/ProductPageDetailQuantityContainer';
 import {SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1} from '../../../contents/products/sign-of-the-deathly-hallows-t-shirt-black-test-1/ProductsSignOfTheDeathlyHallowsTShirtBlackTest1.constants';
+import ProductPageDetailTitleContainer from '../product-page-detail-title/ProductPageDetailTitleContainer';
 
 type Props = {};
 
@@ -20,10 +20,7 @@ export default function ProductPageDetail({}: Props) {
      */
     <div className="mt-10 md:mt-0">
       <div>
-        <ProductTitle
-          as="h1"
-          className={clsx('font-bold', 'text-2xl', 'md:text-3xl')}
-        />
+        <ProductPageDetailTitleContainer />
       </div>
       <div className="mt-4">
         <ProductPageDetailPriceContainer />

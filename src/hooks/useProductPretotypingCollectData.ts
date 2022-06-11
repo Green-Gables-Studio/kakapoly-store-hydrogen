@@ -1,8 +1,8 @@
-import {SelectedOptions} from '@shopify/hydrogen/client';
+import {ProductOptionsHookValue} from '@shopify/hydrogen';
 
 export default function useProductPretotypingCollectData(
   databaseId: string,
-  selectedOptions: SelectedOptions,
+  selectedOptions: ProductOptionsHookValue['selectedOptions'],
   quantity: number,
 ) {
   const collectData = async (event: any) => {

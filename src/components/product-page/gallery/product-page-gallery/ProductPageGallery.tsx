@@ -1,4 +1,4 @@
-import {Image} from '@shopify/hydrogen/client';
+import {Image} from '@shopify/hydrogen';
 import {Image as ImageType} from '@shopify/hydrogen/dist/esnext/storefront-api-types';
 import clsx from 'clsx';
 import React from 'react';

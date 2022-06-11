@@ -1,4 +1,4 @@
-import {useRouteParams} from '@shopify/hydrogen/client';
+import {useRouteParams} from '@shopify/hydrogen';
 import React from 'react';
 import {SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1} from '../contents/products/sign-of-the-deathly-hallows-t-shirt-black-test-1/ProductsSignOfTheDeathlyHallowsTShirtBlackTest1.constants';
 import PagePageLayout from '../page-page/components/page-page-layout/PagePageLayout';
