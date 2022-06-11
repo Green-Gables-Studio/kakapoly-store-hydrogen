@@ -82,8 +82,7 @@ export default function ProductPageDetailOptions({
               {name === '사이즈' && (
                 <div className="mt-4">
                   <a
-                    href="#"
-                    className="underline text-gray-500 text-sm font-medium"
+                    className="underline text-gray-500 text-sm font-medium cursor-pointer"
                     onClick={() => {
                       window.open(
                         `${sizeGuidePath}`,
