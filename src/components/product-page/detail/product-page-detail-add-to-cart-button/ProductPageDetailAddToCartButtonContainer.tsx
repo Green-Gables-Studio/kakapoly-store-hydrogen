@@ -1,4 +1,5 @@
-import {useCart, useProduct, useRouteParams} from '@shopify/hydrogen';
+import {useCart, useRouteParams} from '@shopify/hydrogen';
+import {useProductOptions} from '@shopify/hydrogen/dist/esnext/hooks/useProductOptions/useProductOptions.client';
 import {useNavigate} from '@shopify/hydrogen/client';
 import React, {useEffect, useState} from 'react';
 import useProductPretotypingCollectData from '../../../../hooks/useProductPretotypingCollectData';
@@ -16,7 +17,7 @@ export default function ProductPageDetailAddToCartButtonContainer({}: Props) {
   const {status, linesAdd} = useCart();
   const {openCart}: any = useCartState();
   const {quantity} = useProductPageState();
-  const {selectedOptions, selectedVariant} = useProduct();
+  const {selectedOptions, selectedVariant} = useProductOptions();
   const pretotypingMetafields = useProductPretotypingMetafields();
 
   const pretotyping = pretotypingMetafields.pretotyping?.value as
@@ -28,7 +29,7 @@ export default function ProductPageDetailAddToCartButtonContainer({}: Props) {
 
   const collectData = useProductPretotypingCollectData(
     databaseId ?? '',
-    selectedOptions ?? {},
+    selectedOptions,
     quantity,
   );
 

@@ -1,31 +1,29 @@
-import {useProduct} from '@shopify/hydrogen';
 import {
-  ExternalVideo,
   Image,
-  Maybe,
-  MediaContentType,
   MediaImage,
-  Model3d,
-  Video,
 } from '@shopify/hydrogen/dist/esnext/storefront-api-types';
 import React from 'react';
+import {useProductPageState} from '../../../../providers/product-page-state-provider/ProductPageStateProvider';
 import ProductPageGallery from './ProductPageGallery';
 
 type Props = {};
 
 export default function ProductPageGalleryContainer({}: Props) {
-  const {media} = useProduct();
+  const {product} = useProductPageState();
+  if (!product) {
+    return null;
+  }
 
-  const images: Image[] = media
-    .filter((mediaItem: Video | ExternalVideo | Model3d | MediaImage) => {
-      return mediaItem.mediaContentType === MediaContentType.Image;
-    })
-    .map((imageMedia: MediaImage) => {
-      return imageMedia.image;
-    })
-    .filter((image: Maybe<Image> | undefined) => {
-      return image;
-    });
+  const mediaItems = product.media.nodes as MediaImage[];
+
+  const images = mediaItems.reduce<Image[]>((acc, item) => {
+    if (item.image) {
+      return [...acc, item.image];
+    }
+    return acc;
+  }, []);
+
+  console.log({images});
 
   return <ProductPageGallery images={images} />;
 }

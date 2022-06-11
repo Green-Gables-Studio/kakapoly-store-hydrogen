@@ -1,14 +1,10 @@
-import {
-  OptionWithValues,
-  SelectedOptions,
-  useRouteParams,
-} from '@shopify/hydrogen';
+import {ProductOptionsHookValue, useRouteParams} from '@shopify/hydrogen';
 import React from 'react';
 import {SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1} from '../../../contents/products/sign-of-the-deathly-hallows-t-shirt-black-test-1/ProductsSignOfTheDeathlyHallowsTShirtBlackTest1.constants';
 
 type Props = {
-  options: OptionWithValues[];
-  selectedOptions: SelectedOptions;
+  options: ProductOptionsHookValue['options'];
+  selectedOptions: ProductOptionsHookValue['selectedOptions'];
   onOptionValueChange: (optionName: string, value: string) => void;
 };
 
@@ -31,7 +27,16 @@ export default function ProductPageDetailOptions({
   return (
     <div className="flex flex-col gap-y-6">
       {options?.map((option) => {
+        if (!option) {
+          return null;
+        }
+
         const {name, values} = option;
+
+        if (!name || !values) {
+          return null;
+        }
+
         return (
           <React.Fragment key={name}>
             <fieldset>
@@ -40,6 +45,10 @@ export default function ProductPageDetailOptions({
               </legend>
               <div className="flex items-center flex-wrap gap-4">
                 {values.map((value) => {
+                  if (!value) {
+                    return null;
+                  }
+
                   const checked =
                     selectedOptions && selectedOptions[name] === value;
                   const id = `option-${name}-${value}`;
