@@ -1,7 +1,7 @@
 import React from 'react';
 import IndexPage from '../pages/index-page/IndexPage.client';
 import {
-  CacheDays,
+  CacheLong,
   Seo,
   useShopQuery,
   gql,
@@ -25,7 +25,7 @@ export default function () {
     },
   } = useShopQuery({
     query: QUERY,
-    cache: CacheDays(),
+    cache: CacheLong(),
     preload: '*',
   });
 
