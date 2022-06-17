@@ -35,7 +35,7 @@
   "dependencies": {
     "@fortawesome/pro-regular-svg-icons": "^6.1.1",
     "@headlessui/react": "^1.6.4",
-    "@shopify/hydrogen": "^0.25.0",
+    "@shopify/hydrogen": "^0.25.1",
     "body-parser": "^1.20.0",
     "clsx": "^1.1.1",
     "compression": "^1.7.4",

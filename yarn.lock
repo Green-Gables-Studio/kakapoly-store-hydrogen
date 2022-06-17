@@ -650,7 +650,7 @@
     "@shopify/cli-kit" "2.0.10"
     "@shopify/plugin-ngrok" "^0.2.4"
 
-"@shopify/hydrogen@^0.25.0":
+"@shopify/hydrogen@^0.25.1":
   version "0.25.1"
   resolved "https://registry.yarnpkg.com/@shopify/hydrogen/-/hydrogen-0.25.1.tgz#bb8e207c11a80e0b03d5d5d3d59bf51e04c9cf0d"
   integrity sha512-Y2rz231i255XrQ0bBESlw4Sp2zqZERaLcvr6iycFh73MEN6VCqPTWTbzUy9MPxhLpQtOFUC5YCz08nMLYpw8YA==
