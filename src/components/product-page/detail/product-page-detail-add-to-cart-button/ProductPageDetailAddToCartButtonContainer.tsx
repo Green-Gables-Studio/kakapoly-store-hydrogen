@@ -33,6 +33,7 @@ export default function ProductPageDetailAddToCartButtonContainer({}: Props) {
     databaseId = SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.DATABASE_ID;
   }
 
+
   const collectData = useProductPretotypingCollectData(
     databaseId ?? '',
     selectedOptions,
