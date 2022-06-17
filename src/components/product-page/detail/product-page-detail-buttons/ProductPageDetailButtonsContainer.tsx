@@ -1,4 +1,4 @@
-import {useProductOptions} from '@shopify/hydrogen/dist/esnext/hooks/useProductOptions/useProductOptions.client';
+import {useProductOptions} from '@shopify/hydrogen';
 import React from 'react';
 import ProductPageDetailButtons from './ProductPageDetailButtons';
 
