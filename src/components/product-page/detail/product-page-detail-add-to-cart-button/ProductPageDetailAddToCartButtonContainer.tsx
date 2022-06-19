@@ -1,11 +1,15 @@
-import {useCart, useRouteParams} from '@shopify/hydrogen';
-import {useProductOptions} from '@shopify/hydrogen/dist/esnext/hooks/useProductOptions/useProductOptions.client';
-import {useNavigate} from '@shopify/hydrogen/client';
+import {
+  useCart,
+  useNavigate,
+  useProductOptions,
+  useRouteParams,
+} from '@shopify/hydrogen';
+
 import React, {useEffect, useState} from 'react';
 import useProductPretotypingCollectData from '../../../../hooks/useProductPretotypingCollectData';
-import useProductPretotypingMetafields from '../../../../hooks/useProductPretotypingMetafields';
 import {useCartState} from '../../../../providers/cart-state-provider/CartStateProvider';
 import {useProductPageState} from '../../../../providers/product-page-state-provider/ProductPageStateProvider';
+import {SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1} from '../../../contents/products/sign-of-the-deathly-hallows-t-shirt-black-test-1/ProductsSignOfTheDeathlyHallowsTShirtBlackTest1.constants';
 import ProductPageDetailAddToCartButton from './ProductPageDetailAddToCartButton';
 
 type Props = {};
@@ -18,14 +22,17 @@ export default function ProductPageDetailAddToCartButtonContainer({}: Props) {
   const {openCart}: any = useCartState();
   const {quantity} = useProductPageState();
   const {selectedOptions, selectedVariant} = useProductOptions();
-  const pretotypingMetafields = useProductPretotypingMetafields();
 
-  const pretotyping = pretotypingMetafields.pretotyping?.value as
-    | boolean
-    | undefined;
-  const databaseId = pretotypingMetafields.databaseId?.value as
-    | string
-    | undefined;
+  let pretotyping = false;
+  let databaseId = '';
+
+  if (
+    productHandle === SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.HANDLE
+  ) {
+    pretotyping = SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.PRETOTYPING;
+    databaseId = SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.DATABASE_ID;
+  }
+
 
   const collectData = useProductPretotypingCollectData(
     databaseId ?? '',

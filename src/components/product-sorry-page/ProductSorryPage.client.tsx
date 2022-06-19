@@ -13,7 +13,7 @@ export default function ProductSorryPage({}: Props) {
   if (
     productHandle === SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.HANDLE
   ) {
-    title = `"죽음의 성물 징표(Sign of the Deathly Hallows) 티셔츠"에 관심을 가져 주셔서 감사해요.`;
+    title = `"죽음의 성물 상징(Sign of the Deathly Hallows) 티셔츠"에 관심을 가져 주셔서 감사해요.`;
     content = (
       <div className="prose">
         <p>
