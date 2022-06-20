@@ -1,5 +1,5 @@
 import React from 'react';
-import IndexPage from '../pages/index-page/IndexPage.client';
+import IndexPage from '../components/pages/index-page/IndexPage.client';
 import {
   CacheLong,
   Seo,

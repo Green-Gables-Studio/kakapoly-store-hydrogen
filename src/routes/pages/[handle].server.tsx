@@ -7,7 +7,7 @@ import {
   ShopifyAnalyticsConstants,
 } from '@shopify/hydrogen';
 import React from 'react';
-import PagePage from '../../components/page-page/PagePage.client';
+import PagePage from '../../components/pages/page-page/PagePage.client';
 
 export default function Page({params}: {params: any}) {
   const {languageCode} = useShop();

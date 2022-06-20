@@ -10,7 +10,7 @@ import {
 } from '@shopify/hydrogen';
 import {Product} from '@shopify/hydrogen/dist/esnext/storefront-api-types';
 import React from 'react';
-import ProductPage from '../../../components/product-page/ProductPage.client';
+import ProductPage from '../../../components/pages/product-page/ProductPage.client';
 
 export default function () {
   const {productHandle} = useRouteParams();
