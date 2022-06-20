@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon, {ICON_TYPE} from '../../../icon/Icon';
-import StarSolidSVG from '../../../svg/StarSolidSVG';
-import StarSVG from '../../../svg/StarSVG';
+import Icon, {ICON_TYPE} from '../../../ui/icon/Icon';
+import StarSolidSVG from '../../../ui/svg/StarSolidSVG';
+import StarSVG from '../../../ui/svg/StarSVG';
 
 const StarRating = ({rating}: {rating: number}) => {
   const stars = [];

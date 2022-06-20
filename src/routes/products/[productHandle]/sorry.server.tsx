@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductSorryPage from '../../../components/product-sorry-page/ProductSorryPage.client';
+import ProductSorryPage from '../../../components/pages/product-sorry-page/ProductSorryPage.client';
 
 type Props = {};
 
