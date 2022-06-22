@@ -24,7 +24,7 @@ const campaignEndTime = dayjs()
   .weekday(SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.CAMPAIGN_END_DAY)
   .endOf('day');
 
-const estimatedShippingStarTime = campaignEndTime
+const estimatedShippingStartTime = campaignEndTime
   .add(1, 'week') // week later
   .weekday(1) // next monday
   .startOf('day');
@@ -73,7 +73,7 @@ const ProductsSignOfTheDeathlyHallowsTShirtBlackTest1DetailDescription = (
       <p>
         지금 주문하면{' '}
         <strong className="text-emerald-500">
-          {estimatedShippingStarTime.format('M월 D일')} 경
+          {estimatedShippingStartTime.format('M월 D일')} 경
         </strong>
         에 배송이 시작돼요.
       </p>
