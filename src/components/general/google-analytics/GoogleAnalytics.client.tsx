@@ -7,31 +7,37 @@ let init = false;
 
 export function GoogleAnalytics() {
   useEffect(() => {
-    if (!init) {
-      init = true;
-
-      // gtag initialization code
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-
-      // Configure your gtag
-      gtag('config', TRACKING_ID);
-
-      // Load the gtag script
-      loadScript(URL).catch(() => {});
-
-      // Listen for events from Hydrogen
-      // https://shopify.dev/custom-storefronts/hydrogen/framework/analytics#default-events
-      ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.PAGE_VIEW,
-        (payload) => {
-          gtag('event', 'page_view');
-        },
-      );
+    if (process.env.NODE_ENV !== 'production') {
+      return;
     }
+
+    if (init) {
+      return;
+    }
+
+    init = true;
+
+    // gtag initialization code
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    // Configure your gtag
+    gtag('config', TRACKING_ID);
+
+    // Load the gtag script
+    loadScript(URL).catch(() => {});
+
+    // Listen for events from Hydrogen
+    // https://shopify.dev/custom-storefronts/hydrogen/framework/analytics#default-events
+    ClientAnalytics.subscribe(
+      ClientAnalytics.eventNames.PAGE_VIEW,
+      (payload) => {
+        gtag('event', 'page_view');
+      },
+    );
   });
 
   return null;
