@@ -34,12 +34,12 @@ type Props = {};
 const ProductsSignOfTheDeathlyHallowsTShirtBlackTest1DetailDescription = (
   props: Props,
 ) => {
-  const remainingDaysUntilCampaignEnd = campaignEndTime.diff(now, 'day');
+  const remainingDaysUntilCampaignEndTime = campaignEndTime.diff(now, 'day');
 
   return (
     <div className="prose prose-a:text-gray-500 prose-a:text-sm prose-a:underline">
       <h4>캠페인</h4>
-      {remainingDaysUntilCampaignEnd > 0 ? (
+      {remainingDaysUntilCampaignEndTime > 0 ? (
         <p>
           주문 종료까지{' '}
           <strong className="text-emerald-500">
