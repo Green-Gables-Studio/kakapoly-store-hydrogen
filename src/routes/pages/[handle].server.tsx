@@ -1,11 +1,4 @@
-import {
-  useShop,
-  useShopQuery,
-  Seo,
-  gql,
-  useServerAnalytics,
-  ShopifyAnalyticsConstants,
-} from '@shopify/hydrogen';
+import {useShop, useShopQuery, Seo, gql} from '@shopify/hydrogen';
 import React from 'react';
 import PagePage from '../../components/pages/page-page/PagePage.client';
 
@@ -17,17 +10,6 @@ export default function Page({params}: {params: any}) {
     query: QUERY,
     variables: {language: languageCode, handle},
   });
-
-  useServerAnalytics(
-    data.pageByHandle
-      ? {
-          shopify: {
-            pageType: ShopifyAnalyticsConstants.pageType.page,
-            resourceId: data.pageByHandle.id,
-          },
-        }
-      : null,
-  );
 
   if (!data.pageByHandle) {
     // TODO: Not found page 만들고 적용하기
