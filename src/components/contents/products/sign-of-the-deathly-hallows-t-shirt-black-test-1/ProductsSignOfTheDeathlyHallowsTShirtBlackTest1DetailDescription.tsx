@@ -1,32 +1,30 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
+import ko from 'dayjs/locale/ko';
 import utc from 'dayjs/plugin/utc';
 import weekday from 'dayjs/plugin/weekday';
 import timezone from 'dayjs/plugin/timezone';
-import {SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1} from './ProductsSignOfTheDeathlyHallowsTShirtBlackTest1.constants';
 
+dayjs.locale({
+  ...ko,
+  weekStart: 1,
+});
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(weekday);
 
-const now = dayjs();
+const now = dayjs().tz('Asia/Seoul');
 
-const campaignStartTime = dayjs()
-  .locale('ko')
-  .tz('Asia/Seoul')
-  .weekday(SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.CAMPAIGN_START_DAY)
-  .startOf('day');
+// 매주 월요일 00:00 시작
+const campaignStartTime = now.weekday(0).startOf('day');
 
-const campaignEndTime = dayjs()
-  .locale('ko')
-  .tz('Asia/Seoul')
-  .weekday(SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1.CAMPAIGN_END_DAY)
-  .endOf('day');
+// 매주 일요일 24:00 종료
+const campaignEndTime = now.weekday(6).endOf('day');
 
+// 종료일 기준 다다음주 월요일. (다음주 일요일 다음날.)
 const estimatedShippingStartTime = campaignEndTime
-  .add(1, 'week') // week later
-  .weekday(1) // next monday
+  .add(1, 'week')
+  .add(1, 'day')
   .startOf('day');
 
 type Props = {};
