@@ -16,10 +16,10 @@ dayjs.extend(weekday);
 const now = dayjs().tz('Asia/Seoul');
 
 // 매주 월요일 00:00 시작
-const campaignStartTime = dayjs().tz('Asia/Seoul').weekday(0).startOf('day');
+const campaignStartTime = now.weekday(0).startOf('day');
 
 // 매주 일요일 24:00 종료
-const campaignEndTime = dayjs().tz('Asia/Seoul').weekday(6).endOf('day');
+const campaignEndTime = now.weekday(6).endOf('day');
 
 // 종료일 기준 다다음주 월요일. (다음주 일요일 다음날.)
 const estimatedShippingStartTime = campaignEndTime
