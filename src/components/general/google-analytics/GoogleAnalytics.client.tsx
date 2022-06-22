@@ -18,9 +18,7 @@ export function GoogleAnalytics() {
       gtag('js', new Date());
 
       // Configure your gtag
-      gtag('config', TRACKING_ID, {
-        send_page_view: false,
-      });
+      gtag('config', TRACKING_ID);
 
       // Load the gtag script
       loadScript(URL).catch(() => {});

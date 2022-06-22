@@ -5,8 +5,6 @@ import {
   useShop,
   useSession,
   gql,
-  useServerAnalytics,
-  ShopifyAnalyticsConstants,
 } from '@shopify/hydrogen';
 import {Product} from '@shopify/hydrogen/dist/esnext/storefront-api-types';
 import React from 'react';
@@ -29,17 +27,6 @@ export default function () {
   });
 
   const {product} = data;
-
-  useServerAnalytics(
-    product
-      ? {
-          shopify: {
-            pageType: ShopifyAnalyticsConstants.pageType.product,
-            resourceId: product.id,
-          },
-        }
-      : null,
-  );
 
   if (!product) {
     // TODO: Not found page 만들고 적용하기

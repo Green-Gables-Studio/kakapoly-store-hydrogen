@@ -1,21 +1,8 @@
 import React from 'react';
 import IndexPage from '../components/pages/index-page/IndexPage.client';
-import {
-  CacheLong,
-  Seo,
-  useShopQuery,
-  gql,
-  useServerAnalytics,
-  ShopifyAnalyticsConstants,
-} from '@shopify/hydrogen';
+import {CacheLong, Seo, useShopQuery, gql} from '@shopify/hydrogen';
 
 export default function () {
-  useServerAnalytics({
-    shopify: {
-      pageType: ShopifyAnalyticsConstants.pageType.home,
-    },
-  });
-
   const dummyDataFromAServer = {
     greetings: 'hello world!',
   };

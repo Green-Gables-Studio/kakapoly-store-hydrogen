@@ -28,14 +28,13 @@ const MetaPixel = (props: Props) => {
       );
 
       fbq('init', PIXEL_ID);
+      fbq('track', 'PageView');
 
       // Listen for events from Hydrogen
       // https://shopify.dev/custom-storefronts/hydrogen/framework/analytics#default-events
       ClientAnalytics.subscribe(
         ClientAnalytics.eventNames.PAGE_VIEW,
         (payload) => {
-          console.log('working2222?');
-
           fbq('track', 'PageView');
         },
       );

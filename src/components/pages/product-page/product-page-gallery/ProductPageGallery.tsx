@@ -42,7 +42,10 @@ export default function ProductPageGallery({images}: Props) {
                     'aspect-square',
                     'w-[calc(100vw-2rem)]',
                   )}
-                  data={image}
+                  data={{
+                    ...image,
+                    altText: image.altText ? image.altText : 'Gallery image',
+                  }}
                 />
               </div>
             );
@@ -65,7 +68,10 @@ export default function ProductPageGallery({images}: Props) {
                     'aspect-square',
                     'cursor-zoom-in',
                   )}
-                  data={image}
+                  data={{
+                    ...image,
+                    altText: image.altText ? image.altText : 'Gallery image',
+                  }}
                   onClick={() => {
                     window.open(image.url, '', 'popup,width=1200,height=1200');
                   }}
