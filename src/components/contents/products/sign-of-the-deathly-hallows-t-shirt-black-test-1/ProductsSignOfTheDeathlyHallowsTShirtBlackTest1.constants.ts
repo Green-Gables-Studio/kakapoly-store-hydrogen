@@ -11,8 +11,6 @@ export const SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1 = {
     '/products/sign-of-the-deathly-hallows-t-shirt-black-test-1/popups/policy-guide',
   PRETOTYPING: true,
   DATABASE_ID: '776923fcebe84a5d879ed4e80f76382a',
-  CAMPAIGN_START_DAY: 0, // monday
-  CAMPAIGN_END_DAY: 7, // sunday
 } as const;
 
 export type SIGN_OF_THE_DEATHLY_HALLOW_T_SHIRT_BLACK_TEST_1 =
