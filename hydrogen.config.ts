@@ -1,13 +1,9 @@
-import {
-  defineConfig,
-  CookieSessionStorage,
-  PerformanceMetricsServerAnalyticsConnector,
-  ShopifyServerAnalyticsConnector,
-} from '@shopify/hydrogen/config';
+import {defineConfig, CookieSessionStorage} from '@shopify/hydrogen/config';
 
 export default defineConfig({
   shopify: {
-    defaultLocation: 'ko-KR',
+    defaultCountryCode: 'KR',
+    defaultLanguageCode: 'KO',
     storeDomain: 'kakapoly.myshopify.com',
     storefrontToken: 'd1adb9b5aed22369844f76545b22d8bd',
     storefrontApiVersion: '2022-07',
@@ -19,9 +15,4 @@ export default defineConfig({
     sameSite: 'strict',
     maxAge: 60 * 60 * 24 * 30,
   }),
-
-  serverAnalyticsConnectors: [
-    PerformanceMetricsServerAnalyticsConnector,
-    ShopifyServerAnalyticsConnector,
-  ],
 });
