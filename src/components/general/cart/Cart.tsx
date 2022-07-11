@@ -6,7 +6,7 @@ import {
   CartLineQuantityAdjustButton,
   CartLineQuantity,
   CartLinePrice,
-  CartEstimatedCost,
+  CartCost,
   CartCheckoutButton,
   CartLines,
 } from '@shopify/hydrogen';
@@ -131,7 +131,7 @@ export function CartFooter() {
 
         <div className="flex justify-between">
           <span className="font-semibold">주문 금액</span>
-          <CartEstimatedCost
+          <CartCost
             amountType="subtotal"
             role="cell"
             className="text-base font-semibold"
