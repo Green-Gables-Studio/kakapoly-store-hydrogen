@@ -75,7 +75,7 @@ const QUERY = gql`
       handle
       id
       vendor
-      media(first: 6) {
+      media(first: 7) {
         nodes {
           ... on MediaImage {
             mediaContentType
@@ -170,6 +170,16 @@ const QUERY = gql`
             referenceValue
           }
         }
+      }
+    }
+    shop {
+      shippingPolicy {
+        body
+        handle
+      }
+      refundPolicy {
+        body
+        handle
       }
     }
   }
